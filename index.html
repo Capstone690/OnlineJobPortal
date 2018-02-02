@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Online Job Portal</title>
+	<!-- ================= cdn bootstrap stylesheet & javascript ============-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+	<!-- =================custom script============-->
+	<!-- =================custom stylesheet============-->
+	<link rel="stylesheet" type="text/css" href="public/css/style.css" />
+
+	<!-- ===================font awsome =============== -->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+</head>
+<body>
+<div>
+<!--=====================================NAVIGATION : starts here ======================== -->
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark ">
+<div class="container">
+
+  <a class="navbar-brand" href="#">Job Board</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About Us</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="#">News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact Us</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="#">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Registration </a>
+      </li>
+      
+    </ul>
+    
+  </div>
+
+</div>
+</nav>
+	
+<!--=====================================NAVIGATION : ends here ======================== -->
+
+<!--=====================================FRONT SEARCH : starts here ======================== -->
+
+<div class="jumbotron text-center paralsec">
+  <h1>Build Your Future</h1> 
+  <h4>We offer <span>2,989</span> job vacancies right now!</h4>
+  <!-- search form -->
+  <form class="form-inline justify-content-center ">
+  <div class="form-row">
+     <div class="col-12">
+
+      <input class="form-control form-control-lg mr-sm-2 min-width" type="search" placeholder="Job title, skills, or company" aria-label="Search">
+      <select class="form-control form-control-lg mr-sm-2">
+      	<option>City or State</option>
+      	<option>New York</option>
+      	<option>Los Angeles</option>
+      	<option>Missouri</option>
+      </select>
+      <button class="btn btn-primary btn-lg my-sm-0" type="submit">FIND JOB</button>
+      </div>
+      </div>
+    </form>
+
+</div>
+<!--=====================================FRONT SEARCH : ends here ======================== -->
+
+<!--=====================================JOB CATEGORY : ends here ======================== -->
+<div class="container-fluid job-category">
+<div class="row align-items-center">
+    
+    <div class="col text-center">
+	    <i class="fa fa-building fa-4x" aria-hidden="true"></i>
+	   <h4>Construction</h4>
+	   <hr>
+    </div>
+
+    
+    <div class="col text-center">
+	    <i class="fa fa-hospital-o fa-4x" aria-hidden="true"></i>
+	   <h4>Healthcare</h4>
+	   <hr>
+    </div>
+
+<div class="col text-center">
+	    <i class="fa fa-cutlery fa-4x" aria-hidden="true"></i>
+	   <h4>Food Services</h4>
+	   <hr>
+    </div>
+
+<div class="col text-center">
+	    <i class="fa fa-car fa-4x" aria-hidden="true"></i>
+	   <h4>Automobile Jobs</h4>
+	   <hr>
+    </div>
+
+<div class="col text-center">
+	    <i class="fa fa-desktop fa-4x" aria-hidden="true"></i>
+	   <h4>Engineering</h4>
+	   <hr>
+    </div>
+
+<div class="col text-center">
+	    <i class="fa fa-shopping-bag fa-4x" aria-hidden="true"></i>
+	   <h4>Finance</h4>
+	   <hr>
+    </div>
+
+  </div>
+</div>
+<!--=====================================JOB CATEGORY : ends here ======================== -->
+
+<!--=====================================LATEST JOB : starts here ======================== -->
+
+<!--=====================================LATEST JOB : ends here ======================== -->
+<div class="container latest-job text-center home-heading">
+<h2>Latest Jobs</h2>
+<hr>
+
+<table class="table table-hover ">
+  <thead>
+    <tr class="tbl-latest-job-heading">
+      <th >#</th>
+      <th>Date</th>
+      <th>Company</th>
+      <th>Job Vacancy</th>
+      <th>City</th>
+      <th>Salary</th>
+      <th>Employment</th>
+    </tr>
+  </thead>
+  <tbody>
+
+	<tr>
+	<th scope="row">1</th>
+	<td>11.05.2017, 4:16pm</td>
+	<td><a href="company.html"><img class="img-semi-transparent-inverse" src="public/img/partner-01-45x40.png" width="45" height="40" alt=""></a></td>
+	<td class="text-bold text-primary p"><a href="project-managers.html">Developer</a></td>
+	<td>New York</td>
+	<td>$6000</td>
+	<td>Full time</td>
+	</tr>
+    
+    <tr>
+	<th scope="row">1</th>
+	<td>11.05.2017, 4:16pm</td>
+	<td><a href="company.html"><img class="img-semi-transparent-inverse" src="public/img/partner-01-45x40.png" width="45" height="40" alt=""></a></td>
+	<td class="text-bold text-primary p"><a href="project-managers.html">Developer</a></td>
+	<td>New York</td>
+	<td>$6000</td>
+	<td>Full time</td>
+	</tr>
+
+	<tr>
+	<th scope="row">1</th>
+	<td>11.05.2017, 4:16pm</td>
+	<td><a href="company.html"><img class="img-semi-transparent-inverse" src="public/img/partner-01-45x40.png" width="45" height="40" alt=""></a></td>
+	<td class="text-bold text-primary p"><a href="project-managers.html">Developer</a></td>
+	<td>New York</td>
+	<td>$6000</td>
+	<td>Full time</td>
+	</tr>
+
+	<tr>
+	<th scope="row">1</th>
+	<td>11.05.2017, 4:16pm</td>
+	<td><a href="company.html"><img class="img-semi-transparent-inverse" src="public/img/partner-01-45x40.png" width="45" height="40" alt=""></a></td>
+	<td class="text-bold text-primary p"><a href="project-managers.html">Developer</a></td>
+	<td>New York</td>
+	<td>$6000</td>
+	<td>Full time</td>
+	</tr>
+
+	<tr>
+	<th scope="row">1</th>
+	<td>11.05.2017, 4:16pm</td>
+	<td><a href="company.html"><img class="img-semi-transparent-inverse" src="public/img/partner-01-45x40.png" width="45" height="40" alt=""></a></td>
+	<td class="text-bold text-primary p"><a href="project-managers.html">Developer</a></td>
+	<td>New York</td>
+	<td>$6000</td>
+	<td>Full time</td>
+	</tr>
+    
+  </tbody>
+</table>
+	
+	<button class="btn btn-primary view-all">VIEW ALL</button>
+</div>
+
+<!-- ==============================WHY PEOPLE CHOOSE US ================== -->
+<div class="grey">
+
+<div class="container home-heading why-people-chose-us-outer">
+	<h2 class=" text-center ">Why People Choose Us</h2>
+	<hr>
+	
+	<div class="row">
+    <div class="col">
+
+    <h4><i class="fa fa-user" aria-hidden="true"></i>&nbsp; VERIFIED EMPLOYERS</h4>
+
+     <p>We pay a lot of attention to the employers we cooperate with and vacancies they submit to our job board.</p>
+    </div>
+    <div class="col">
+     
+         <h4><i class="fa fa-user" aria-hidden="true"></i>&nbsp; VERIFIED EMPLOYERS</h4>
+
+     <p>We pay a lot of attention to the employers we cooperate with and vacancies they submit to our job board.</p>
+
+
+    </div>
+    <div class="col">
+    <h4><i class="fa fa-user" aria-hidden="true"></i>&nbsp; VERIFIED EMPLOYERS</h4>
+
+     <p>We pay a lot of attention to the employers we cooperate with and vacancies they submit to our job board.</p>
+    </div>
+  </div>
+
+</div>
+	
+</div>
+<!-- ==============================WHY PEOPLE CHOOSE US ================== -->
+
+<!-- =============================TESTIMONIAL ================ -->
+
+<div class="container testimonial text-center home-heading">
+<h2>Testimonials</h2>
+<hr>
+
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+
+                    <!-- Carousel Slides / Quotes -->
+                    <div class="carousel-inner text-center">
+                        <!-- Quote 1 -->
+                        <div class="carousel-item active">
+                            <blockquote>
+                                <div class="row justify-content-md-center">
+                                    <div class="col-md-6 offset-md-3 rt-margin">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. !</p>
+                                        <small>Someone famous</small>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <!-- Quote 2 -->
+                        <div class="carousel-item">
+                            <blockquote>
+                                <div class="row justify-content-md-center">
+                                    <div class="col-md-6 offset-md-3 rt-margin">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+                                        <small>Someone famous</small>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <!-- Quote 3 -->
+                        <div class="carousel-item">
+                            <blockquote>
+                                <div class="row justify-content-md-center">
+                                    <div class="col-md-6 offset-md-3 rt-margin">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. .</p>
+                                        <small>Someone famous</small>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Carousel Indicators -->
+                     <!-- Carousel Buttons Next/Prev -->
+                    <!-- Carousel Buttons Next/Prev -->
+                    <a data-slide="prev" href="#quote-carousel" class="carousel-control-prev left carousel-control"><i class="fa fa-chevron-left"></i></a>
+                    <a data-slide="next" href="#quote-carousel" class="carousel-control-next right carousel-control"><i class="fa fa-chevron-right"></i></a>
+   
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+<!-- ===========LATEST BLOG =============== -->
+<div class="grey">
+
+<div class="container home-heading latest-news">
+	<h2 class=" text-center ">Latest News</h2>
+	<hr>
+	
+	<div class="row">
+		<div class="col-6">
+			<div class="card" >
+  <img class="card-img-top" src="http://via.placeholder.com/500x180" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Top 50 international companies to consider your potential employer.</h5>
+    <p class="card-text">There are thousands of possibilities that can help you find the job of your dream. But how many of them will really lead you to the success of working at the well-known international company? Let’s find it out.
+
+</p>
+   <div class="text-center">
+	   <a href="#" class="btn btn-primary">view</a>
+ 	
+</div>
+  </div>
+</div>
+		</div>
+		<div class="col-6">
+			<div class="card" >
+  <img class="card-img-top" src="http://via.placeholder.com/500x180" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">There are thousands of possibilities that can help you find the job of your dream.  Let’s find it out.
+
+</h5>
+    <p class="card-text">It is widely known that teamwork is very important to successful completion of any idea. Nevertheless, some projects based on the principle of cooperation often lack some simple but effective features.
+</p>
+<div class="text-center">
+	   <a href="#" class="btn btn-primary">view</a>
+ 	
+</div>
+  </div>
+</div>
+		</div>
+		
+
+	</div>
+
+		
+
+</div>
+	
+	<div class="text-center">
+		<button class="btn btn-primary view-all">VIEW ALL</button>
+	</div>
+</div>
+
+<!-- ================== FOOTER ======== -->
+<footer>
+	<div class="container">
+	<div class="row">
+		<div class="col-3">
+		<div>
+			<a class="navbar-brand" href="#">Job Board</a>	
+		</div>
+		<div>
+			<i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i>&nbsp;
+			<i class="fa fa-twitter fa-lg" aria-hidden="true"></i>&nbsp;
+			<i class="fa fa-instagram fa-lg" aria-hidden="true"></i>&nbsp;
+			<i class="fa fa-youtube-play fa-lg" aria-hidden="true"></i>&nbsp;
+			<i class="fa fa-google-plus-official fa-lg" aria-hidden="true"></i>
+
+
+		</div>
+		<div class="copyright">Job Board © 2018 </div>
+		</div>
+    	<div class="col-5">
+    		<h5>NEWSLETTER</h5>
+    		<p>Keep up with our always upcoming news and updates. Enter your e-mail and subscribe to our newsletter.</p>
+    		<form class="form-inline">
+    			 <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+  <div class="input-group mb-2 mr-sm-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+</div>
+    </div>
+    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="email">
+     </div>
+
+     <span class="input-group mb-2 mr-sm-2">
+      <button type="submit" class="btn btn-primary ">Subscribe</button>
+      </span>
+ 
+    		</form>
+    	</div>
+    	<div class="col">
+    		<h5>CITIES</h5>
+    		<ul class="list list-unstyled list-inline-primary">
+                        <li class="text-primary"><a href="#">New York</a></li>
+                        <li class="text-primary"><a href="#">San Diego</a></li>
+                        <li class="text-primary"><a href="#">Los Angeles</a></li>
+                        <li class="text-primary"><a href="#">Boston</a></li>
+                        <li class="text-primary"><a href="#">Washington</a></li>
+                        <li class="text-primary"><a href="#">Chicago</a></li>
+                      </ul>
+
+    	</div>
+        <div class="col">
+        	<h5>CATEGORIES</h5>
+        	<ul class="list list-unstyled list-inline-primary">
+                        <li class="text-primary"><a href="#">Healthcare</a></li>
+                        <li class="text-primary"><a href="#">Automobile Jobs</a></li>
+                        <li class="text-primary"><a href="#">Food Services</a></li>
+                        <li class="text-primary"><a href="#">Construction</a></li>
+                        <li class="text-primary"><a href="#">Logistics</a></li>
+                        <li class="text-primary"><a href="#">Finance</a></li>
+                      </ul>
+        </div>
+
+	</div>
+		
+	</div>
+</footer>
+</div> <!-- id:background -->
+</body>
+<script type="text/javascript" src="public/javascript/script.js"></script>
+</html>
