@@ -218,6 +218,16 @@ table.dataTable thead .sorting:after {
 .panel-yellow > a:hover {
   color: #df8a13;
 }
+#edit_profile_pic{
+  width: 80px;
+  height: 80px;
+  border:1px solid black;
+  margin:5px 0 10px 0;
+}
+#edit_profile_pic img{
+  width: 80px;
+  height: 80px;
+}
 /*forgot password*/
 .last-div{
 	margin-bottom: 7px;
