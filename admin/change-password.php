@@ -76,17 +76,20 @@ if(isset($_POST["change_password"])) {
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" name="frm_change_password" method="POST">
+                                    <form role="form" name="frm_change_password" id="frm_change_password" method="POST">
                                     <div class="form-group">
                                             <label>Old Password</label>
+                                            <div class="help-block with-errors"></div>
                                             <input class="form-control" type="password" name="oldPassword" required>
                                     </div>
                                     <div class="form-group">
                                             <label>New Password</label>
+                                            <div class="help-block with-errors"></div>
                                             <input class="form-control" type="password" name="newPassword" required>
                                     </div>
                                     <div class="form-group">
                                             <label>Re-enter new Password</label>
+                                            <div class="help-block with-errors"></div>
                                             <input class="form-control" type="password" name="confirmPassword" required>
                                     </div>
                                     
@@ -109,6 +112,13 @@ if(isset($_POST["change_password"])) {
     </div>
     <!-- /#wrapper -->
 <?php include("partials/footer.inc.php");?>
-
+<script>
+    $(document).ready(function() {
+        //add reqired field mark
+       addRequiredMark('frm_change_password');
+      //add validator
+      $('#frm_change_password').validator()
+});
+</script>
 </body>
 </html>

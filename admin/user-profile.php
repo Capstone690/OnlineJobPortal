@@ -131,13 +131,15 @@ if($count == 1) {
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form"  name="frm_update_user_profile" method="POST" enctype="multipart/form-data">
+                                    <form role="form" id="frm_update_user_profile" name="frm_update_user_profile" method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
                                             <label>Display Name</label>
+                                            <div class="help-block with-errors"></div>
                                             <input class="form-control" name="displayName" value="<?php echo $displayName?>" required>
                                     </div>
                                     <div class="form-group">
                                             <label>Email Address</label>
+                                            <div class="help-block with-errors"></div>
                                             <input class="form-control" type="email" name="email" value="<?php echo $email?>"  required>
                                     </div>
                                     <div class="form-group">
@@ -165,15 +167,12 @@ if($count == 1) {
 
     </div>
     <!-- /#wrapper -->
-<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<!-- Bootstrap Core JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"  crossorigin="anonymous"></script>
- 	<!-- Metis Menu Plugin JavaScript -->
-    <script src="public/javascript/metisMenu.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="public/javascript/script.js"></script>
-
+<?php include("partials/footer.inc.php");?>
+    <script>
+    $(document).ready(function() {
+      addRequiredMark("frm_update_user_profile");
+      $('#frm_update_user_profile').validator()
+});
+</script>
 </body>
 </html>

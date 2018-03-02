@@ -1,5 +1,6 @@
 <?php
 define("TARGET_DIR", "uploads");
+define("TARGET_DIR_FRONT", "../uploads");
 
 function test_input($data) {
   $data = trim($data);

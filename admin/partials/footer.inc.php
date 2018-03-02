@@ -6,3 +6,5 @@
 <script src="public/javascript/metisMenu.min.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="public/javascript/script.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.10.2/validator.min.js"></script>

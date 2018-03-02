@@ -232,7 +232,12 @@ table.dataTable thead .sorting:after {
 .last-div{
 	margin-bottom: 7px;
 }
-
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+/*
+label::after - input:required { content: "*"; color:red;}*/
 @media (min-width: 768px) {
 #page-wrapper {
     position: inherit;

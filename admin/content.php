@@ -1,26 +1,22 @@
+<?php
+/*
+ * File Name: user-profile.php
+ * By: Dipali
+ * Date: 02/12/2018
+ *
+ */
+
+require_once('include/session.php');
+require_once("include/config.php");
+$browserTitle = "Manage Content";
+$error="";
+$successMsg="";
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
- <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-	<title>Content</title>
-	<!-- ================= cdn bootstrap stylesheet & javascript ============-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  crossorigin="anonymous">
-
-	<!-- ===================MetisMenu CSS========================= -->
-    <link href="public/css/metisMenu.min.css" rel="stylesheet">
-
-   	<!-- =================custom stylesheet============-->
-	<link rel="stylesheet" type="text/css" href="public/css/style.css" />
-
-	<!-- ===================font awsome =============== -->
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    	
+ <?php include("partials/header.inc.php"); ?>
 </head>
 <body>
 
@@ -28,193 +24,8 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Admin</a>
-            </div>
-            <!-- /.navbar-header -->
-
-            <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
-                <!-- /.dropdown -->
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="user-profile.html"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="change-password.html"><i class="fa fa-unlock fa-fw"></i> Change Password</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
-
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="content.html"><i class="fa fa-clipboard fa-fw"></i> Content </a>
-                        </li>
-                        <li>
-                            <a href="news.html"><i class="fa fa-file fa-fw"></i> News </a>
-                        </li>
-                        <li>
-                            <a href="index.html"><i class="fa fa-pencil fa-fw"></i> Blog </a>
-                        </li>
-                        <!--<li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Users<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="jobseeker.html">Jobseeker</a>
-                                </li>
-                                <li>
-                                    <a href="employer.html">Employer</a>
-                                </li>
-                            </ul>
-                        </li>    <!-- /.nav-second-level -->
-                        
-                        
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
+        <?php include("partials/nav.inc.php");?>
+        <?php include("partials/sidebar.inc.php");?>
         </nav>
 
         <!-- Page Content -->
@@ -231,6 +42,12 @@
                 <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
+                            <?php if (isset($_SESSION['success_message'])): ?>
+                            <div class="alert alert-success fade in">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']);?>
+                            </div>
+                           <?php endif ?>
                         <div class="panel-heading">
                             Manage Content
                         </div>
@@ -246,21 +63,37 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Home</td>
-                                            <td><a href="edit-content.html"><i class="fa fa-edit fa-2x"></i></a></td>
+                                        <?php
+                                        //display data
+                                        $sql = "SELECT menu_header_id,menu_header_text FROM menu_header ";
+                                        $result = mysqli_query($db,$sql);
+                                        $count = mysqli_num_rows($result);
+                                        $rowNo=1;
+                                        if($count > 0) {
+                                              while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                                                $menuHeaderId = $content["menu_header_id"];
+                                                $menuHeaderText = $content["menu_header_text"];
+                                                ?>
+                                         <tr>
+                                            <td><?php echo $rowNo;?></td>
+                                            <td><?php echo $menuHeaderText;?></td>
+                                            <td><a href="edit-content.php?menu_id=<?php echo $menuHeaderId; ?>"><i class="fa fa-edit fa-2x"></i></a></td>
                                         </tr>
+                                       
+                                        <?php
+                                                $rowNo++;
+                                              }
+
+                                         }else{
+                                             ?>
                                         <tr>
-                                            <td>2</td>
-                                            <td>About</td>
-                                            <td><a href="edit-content.html"><i class="fa fa-edit fa-2x"></i></a></td>
+                                            <td colspan="3">No records found</td>
                                         </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Contact Us</td>
-                                            <td><a href="edit-content.html"><i class="fa fa-edit fa-2x"></i></a></td>
-                                        </tr>
+                                       
+                                             <?php
+                                         }
+                                        ?>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -278,15 +111,6 @@
 
     </div>
     <!-- /#wrapper -->
-<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<!-- Bootstrap Core JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"  crossorigin="anonymous"></script>
- 	<!-- Metis Menu Plugin JavaScript -->
-    <script src="public/javascript/metisMenu.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="public/javascript/script.js"></script>
-
+<?php include("partials/footer.inc.php");?>
 </body>
 </html>
