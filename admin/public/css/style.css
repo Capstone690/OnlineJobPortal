@@ -86,7 +86,7 @@ body {
 .btn-outline {
   color: inherit;
   background-color: transparent;
-  transition: all .5s;
+/*  transition: all .5s;*/
 }
 .btn-primary.btn-outline {
   color: #428bca;
@@ -219,26 +219,34 @@ table.dataTable thead .sorting:after {
   color: #df8a13;
 }
 #edit_profile_pic{
-  width: 80px;
+  width: 100px;
   height: 80px;
   border:1px solid black;
   margin:5px 0 10px 0;
 }
+
 #edit_profile_pic img{
-  width: 80px;
+  width: 100px;
   height: 80px;
 }
 /*forgot password*/
 .last-div{
 	margin-bottom: 7px;
 }
-.form-group.required .control-label:after {
-  content:"*";
-  color:red;
+.upload-img{
+  width: 30% !important;
 }
-/*
-label::after - input:required { content: "*"; color:red;}*/
-@media (min-width: 768px) {
+.no-border{
+  border:0;
+}
+.green{
+  color: green;
+}
+.red{
+  color: red;
+}
+
+@media screen and (min-width: 768px) {
 #page-wrapper {
     position: inherit;
     margin: 0 0 0 250px;

@@ -11,6 +11,7 @@ require_once ("include/function.php");
 $browserTitle = "Edit Content";
 $error="";
 $successMsg="";
+$sideBarActive=2;
 //display content
 $pageTitle       = "";
 $brsrTitle     = "";
@@ -57,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_content"])) {
     $date            = date('Y-m-d h:i:sa');
     
     if(!empty($imgName)){
-        $target_file = TARGET_DIR ."/".$imgName ;
+        $target_file = TARGET_DIR_FRONT ."/".$imgName ;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
         if($check === false) {
@@ -179,7 +180,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_content"])) {
                                      <div class="form-group">
                                             <label >Background Image</label>
                                             <div id="edit_profile_pic">
-                                                <img src="<?php echo TARGET_DIR."/".$media?>" />
+                                                <img src="<?php echo TARGET_DIR_FRONT."/".$media?>" />
                                             </div>
                                             <input class="form-control" type="file" name="fileToUpload" >
                                     </div>   

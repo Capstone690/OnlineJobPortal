@@ -11,7 +11,7 @@ require_once("include/config.php");
 $browserTitle = "Manage Content";
 $error="";
 $successMsg="";
-
+$sideBarActive=2;
 ?>
 <!DOCTYPE html>
 <html>

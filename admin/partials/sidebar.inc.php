@@ -18,10 +18,13 @@
                             <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="content.php"><i class="fa fa-clipboard fa-fw"></i> Content </a>
+                            <a class="<?php echo ($sideBarActive==2)?'active':''?>" href="content.php"><i class="fa fa-clipboard fa-fw"></i> Content </a>
                         </li>
                         <li>
-                            <a href="news.php"><i class="fa fa-file fa-fw"></i> News </a>
+                            <a class="<?php echo ($sideBarActive==3)?'active':''?>" href="news.php"><i class="fa fa-file fa-fw"></i> News </a>
+                        </li>
+                        <li>
+                            <a class="<?php echo ($sideBarActive==4)?'active':''?>" href="category.php"><i class="fa fa-tasks fa-fw"></i> Job Category </a>
                         </li>
                         <!--<li>
                             <a href="index.html"><i class="fa fa-pencil fa-fw"></i> Blog </a>

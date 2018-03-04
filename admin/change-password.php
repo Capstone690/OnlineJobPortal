@@ -117,7 +117,7 @@ if(isset($_POST["change_password"])) {
         //add reqired field mark
        addRequiredMark('frm_change_password');
       //add validator
-      $('#frm_change_password').validator()
+      $('#frm_change_password').validator();
 });
 </script>
 </body>
