@@ -1,17 +1,19 @@
 <?php
 /*
- * File Name: category.php
+ * File Name: company.php
  * By: Dipali
- * Date: 02/14/2018
+ * Date: 02/16/2018
  *
  */
 
 require_once('include/session.php');
-require_once("include/config.php");
-$browserTitle = "Manage Business Stream";
+//require_once("include/config.php");
+require_once("include/function.php");
+
+$browserTitle = "Manage Company";
 $error="";
 $successMsg="";
-$sideBarActive=4;
+$sideBarActive=5;
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,7 +35,7 @@ $sideBarActive=4;
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Manage Business Stream</h1>
+                        <h1 class="page-header">Manage Company</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -50,19 +52,21 @@ $sideBarActive=4;
                            <?php endif ?>
                         <div id="messages"></div>
                         <div class="panel-heading">
-                            Manage Category
+                            Manage Company
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                         <div class="text-right" style="margin-bottom:10px;">
-                            <a class="btn btn-primary " href="add-edit-category.php">Add Business Stream</a>
+                            <a class="btn btn-primary " href="add-edit-company.php">Add Company</a>
                         </div>
-                             <form role="form"  id="frm_category"  name="frm_category" method="POST" enctype="multipart/form-data">
+                             <form role="form"  id="frm_company"  name="frm_company" method="POST" enctype="multipart/form-data">
                                    
                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
                                         <th>Title</th>
+                                        <th>Business Stream</th>
+                                        <th>Gallery</th>
                                         <th>Status</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
@@ -71,22 +75,27 @@ $sideBarActive=4;
                                 <tbody>
                                     <?php
                                         //display data
-                                        $sql = "SELECT `id`,`business_stream_name`,`is_active` FROM bussiness_stream WHERE is_removed='0' ";
+                                        $sql = "SELECT `id`, `company_name`, `business_stream_id`, `company_website_url`,`is_active` FROM company WHERE is_removed='0' ";
                                         $result = mysqli_query($db,$sql);
                                         $count = mysqli_num_rows($result);
                                         $rowNo=1;
                                         if($count > 0) {
                                               while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                                                $categoryId = $content["id"];
-                                                $title = $content["business_stream_name"];
+                                                $companyId = $content["id"];
+                                                $companyName = $content["company_name"];
+                                                $companyUrl= $content["company_website_url"];
+                                                $businessStream=get_business($content["business_stream_id"]);
                                                 $isActive = $content["is_active"];
                                                 $class = ($rowNo%2==0)?"even":"odd";
                                                 
                                                 ?>
-                                    <tr class="<?php echo $class?> gradeX" id="record_<?php echo $categoryId?>">
-                                        <td><?php echo $title;?></td>
+                                    <tr class="<?php echo $class?> gradeX" id="record_<?php echo $companyId?>">
+                                        <td><a href="<?php echo $companyUrl?>" target="_blank"><?php echo $companyName;?></a></td>
+                                        <td><?php echo $businessStream?></td>
+                                        <td><a href="company-gallery.php?company_id=<?php echo $companyId?>" ><i class="fas fa-images"></i></a></td>
+                                        
                                         <td class="text-center">
-                                            <button type="button" name="status" id="status_<?php echo $categoryId?>" class=" status no-border" data-id="<?php echo $categoryId ?>">
+                                            <button type="button" name="status" id="status_<?php echo $companyId?>" class=" status no-border" data-id="<?php echo $companyId ?>">
                                             <?php if($isActive==='1'){
                                                 ?>
                                             <i class="fa fa-check-circle fa-2x green"></i>
@@ -98,8 +107,8 @@ $sideBarActive=4;
                                             }?>
                                             </button>
                                         </td>
-                                        <td class="center text-center"><a href="add-edit-category.php?id=<?php echo $categoryId;?>"><i class="fa fa-edit fa-2x"></i></a></td>
-                                        <td class="center text-center"><button type="button" name="delete" class=" btn-danger delete no-border" id="<?php echo $categoryId ?>"><i class="fa fa-trash fa-2x"></button></a></td>
+                                        <td class="center text-center"><a href="add-edit-company.php?id=<?php echo $companyId;?>"><i class="fa fa-edit fa-2x"></i></a></td>
+                                        <td class="center text-center"><button type="button" name="delete" class=" btn-danger delete no-border" id="<?php echo $companyId ?>"><i class="fa fa-trash fa-2x"></i></button></td>
                                     </tr>
                                     <?php
                                                 $rowNo++;
@@ -108,7 +117,7 @@ $sideBarActive=4;
                                          }else{
                                              ?>
                                      <tr class="even gradeX">
-                                        <td colspan="5">No records  found</td>
+                                        <td colspan="6">No records  found</td>
                                     </tr>
                                       <?php
                                          }
@@ -142,23 +151,23 @@ $sideBarActive=4;
         $('#dataTables-example').DataTable({
             responsive: true,
             stateSave: true,
-            "aoColumns": [null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
+            "aoColumns": [null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
         });
         $("#dataTables-example_filter").css("text-align","right");
         $("#dataTables-example_paginate").css("text-align","right");
         //delete record
      $(document).on('click', '.delete', function(){
-             var category_id = $(this).attr("id");
-             var action = "delete_category";
+             var company_id = $(this).attr("id");
+             var action = "delete_company";
 
          if(confirm("Are you sure you want to remove this record from database?"))
           {
               $.ajax({
                   url: 'include/action.php',
                   type: 'post',
-                  data:{category_id:category_id, action:action},
+                  data:{company_id:company_id, action:action},
                   success: function(data, status) {
-                     $("#record_"+category_id).html("");
+                     $("#record_"+company_id).html("");
                      $('#messages').html("<div class='alert alert-success fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a>Record deleted Successfully</div>");
                       //location.reload();
                   },
@@ -176,17 +185,17 @@ $sideBarActive=4;
 
          //change status
      $(document).on('click', '.status', function(){
-             var category_id = $(this).attr("data-id");
-             var action = "change_category_status";
+             var company_id = $(this).attr("data-id");
+             var action = "change_company_status";
 
          if(confirm("Are you sure you want to change status?"))
           {
               $.ajax({
                   url: 'include/action.php',
                   type: 'post',
-                  data:{category_id:category_id, action:action},
+                  data:{company_id:company_id, action:action},
                   success: function(data, status) {
-                     $("#status_"+category_id).html(data);
+                     $("#status_"+company_id).html(data);
                      $('#messages').html("<div class='alert alert-success fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a>Status changed Successfully</div>");
                       //location.reload();
                   },

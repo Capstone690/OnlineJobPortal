@@ -24,7 +24,10 @@
                             <a class="<?php echo ($sideBarActive==3)?'active':''?>" href="news.php"><i class="fa fa-file fa-fw"></i> News </a>
                         </li>
                         <li>
-                            <a class="<?php echo ($sideBarActive==4)?'active':''?>" href="category.php"><i class="fa fa-tasks fa-fw"></i> Job Category </a>
+                            <a class="<?php echo ($sideBarActive==4)?'active':''?>" href="category.php"><i class="fa fa-tasks fa-fw"></i> Business Stream </a>
+                        </li>
+                        <li>
+                            <a class="<?php echo ($sideBarActive==5)?'active':''?>" href="company.php"><i class="fa fa-building fa-fw"></i> Company </a>
                         </li>
                         <!--<li>
                             <a href="index.html"><i class="fa fa-pencil fa-fw"></i> Blog </a>

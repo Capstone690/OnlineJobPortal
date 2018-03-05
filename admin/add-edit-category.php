@@ -16,7 +16,7 @@ $categoryTitle    = "";
 // Check existence of id parameter before processing further
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 //edit page
-$browserTitle = "Edit Job Category";
+$browserTitle = "Edit Business Stream";
 $btnName="edit_category";
 $btn="Update";
 
@@ -34,7 +34,7 @@ if($count == 1) {
  }
 
 }else{
-    $browserTitle = "Add Category";
+    $browserTitle = "Add Business Stream";
     $btnName="add_category";
     $btn="Add";
 }
@@ -139,14 +139,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add_category"]) || iss
                     </div>
                     <?php } ?>
                         <div class="panel-heading">
-                            Job Category
+                            Business Stream
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-10">
                                     <form role="form"  data-toggle="validator" id="frm_add_update_category"  name="frm_add_update_category" method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
-                                            <label  class="control-label">Job Category</label>
+                                            <label  class="control-label">Business Stream</label>
                                             <div class="help-block with-errors"></div>
                                             <input class="form-control" id="category_title" name="categoryTitle" value="<?php echo $categoryTitle;?>" required="true">
                                     </div>

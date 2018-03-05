@@ -245,7 +245,9 @@ table.dataTable thead .sorting:after {
 .red{
   color: red;
 }
-
+.business{
+	width: 25%;
+}
 @media screen and (min-width: 768px) {
 #page-wrapper {
     position: inherit;
