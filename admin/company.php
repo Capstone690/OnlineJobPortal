@@ -66,12 +66,22 @@ $sideBarActive=5;
                                     <tr>
                                         <th>Title</th>
                                         <th>Business Stream</th>
-                                        <th>Gallery</th>
-                                        <th>Status</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th class="text-center">Gallery</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Edit</th>
+                                        <th class="text-center">Delete</th>
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td>Business Stream</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     <?php
                                         //display data
@@ -92,7 +102,7 @@ $sideBarActive=5;
                                     <tr class="<?php echo $class?> gradeX" id="record_<?php echo $companyId?>">
                                         <td><a href="<?php echo $companyUrl?>" target="_blank"><?php echo $companyName;?></a></td>
                                         <td><?php echo $businessStream?></td>
-                                        <td><a href="company-gallery.php?company_id=<?php echo $companyId?>" ><i class="fas fa-images"></i></a></td>
+                                        <td class="text-center"><a href="company-gallery.php?company_id=<?php echo $companyId?>" ><i class="fa fa-image fa-2x"></i></a></td>
                                         
                                         <td class="text-center">
                                             <button type="button" name="status" id="status_<?php echo $companyId?>" class=" status no-border" data-id="<?php echo $companyId ?>">
@@ -124,6 +134,7 @@ $sideBarActive=5;
                                         ?>
                                      
                                 </tbody>
+
                             </table>
                             <!-- /.table-responsive -->
                             <!-- /.table-responsive -->
@@ -151,10 +162,33 @@ $sideBarActive=5;
         $('#dataTables-example').DataTable({
             responsive: true,
             stateSave: true,
-            "aoColumns": [null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
+            sPlaceHolder: "head:before",
+            "aoColumns": [null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }],
+            initComplete: function () {
+            this.api().columns([1]).every( function () {
+                var column = this;
+                var select = $('<select><option value="">All Business Streams</option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
         });
         $("#dataTables-example_filter").css("text-align","right");
         $("#dataTables-example_paginate").css("text-align","right");
+        $('#dataTables-example tfoot tr').insertAfter($('#dataTables-example thead tr'))
+
         //delete record
      $(document).on('click', '.delete', function(){
              var company_id = $(this).attr("id");

@@ -2,6 +2,7 @@
    include('include/session.php');
    require_once("include/config.php");
 $browserTitle = "Dashboard";
+$sideBarActive=1;
 
 ?>
 
