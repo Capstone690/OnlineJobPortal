@@ -50,4 +50,75 @@ function get_business_options($businessStreamId){
         return $option;
     }
 }
+
+function get_company($companyId){
+    global $db;
+    $sql = "SELECT company_name FROM company WHERE is_removed='0' AND id=".$companyId." ";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        $content = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        return $content["company_name"];
+    }else{
+        return "-";
+    }
+
+}
+function get_company_options($companyId){
+    global $db;
+    $option="<option value=''>Select</option>";
+    $sql = "SELECT id, company_name FROM company WHERE is_removed='0' AND is_active='1' ";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $id=$content["id"];
+                $company_name=$content["company_name"];
+                if($companyId==$id){
+                    $select="selected";
+                }else{
+                    $select="";
+                }
+                $option.="<option $select value='$id'>$company_name</option>";
+        }
+        return $option;
+    }else{
+        return $option;
+    }
+}
+function get_job_type($jobTypeId){
+    global $db;
+    $sql = "SELECT job_type FROM job_type WHERE id=".$jobTypeId." ";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        $content = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        return $content["job_type"];
+    }else{
+        return "-";
+    }
+
+}
+function get_job_type_options($jobTypeId){
+    global $db;
+    $option="<option value=''>Select</option>";
+    $sql = "SELECT id, job_type FROM job_type";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $id=$content["id"];
+                $job_type=$content["job_type"];
+                if($jobTypeId==$id){
+                    $select="selected";
+                }else{
+                    $select="";
+                }
+                $option.="<option $select value='$id'>$job_type</option>";
+        }
+        return $option;
+    }else{
+        return $option;
+    }
+}
 ?>

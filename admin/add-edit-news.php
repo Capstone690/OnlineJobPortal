@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add_news"]) || isset($
     $briefDescription    = test_input($_POST["briefDescription"]);
     $publishedDate = test_input($_POST["publishedDate"]);
     $imgName         = basename($_FILES["fileToUpload"]["name"]);
-    $description     = mysql_real_escape_string($_POST["description"]);
+    $description     = mysqli_real_escape_string($db,$_POST["description"]);
     $date            = date('Y-m-d h:i:sa');
 
     if(!empty($imgName)){

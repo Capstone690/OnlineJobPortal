@@ -248,7 +248,46 @@ table.dataTable thead .sorting:after {
 .business{
 	width: 25%;
 }
-/*
+fieldset {
+    padding: .35em .625em .75em;
+    margin: 0 2px;
+    border: 1px solid silver;
+}
+legend{
+  border:none;
+  width: auto;
+}
+.addExperience{
+	float: right;
+	/*color: #337ab7;
+	border:none;
+	background:none;*/
+}
+.outer-date{
+	display: flex;
+}
+.start-date{
+	margin-right:20px;
+}
+/* Flaired edges, by Tomas Theunissen */
+
+hr.style-seven {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+}
+hr.style-seven:after {
+    content: "*";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}
 @media screen and (min-width: 768px) {
 #page-wrapper {
     position: inherit;
@@ -267,4 +306,4 @@ table.dataTable thead .sorting:after {
   .navbar-top-links .dropdown-alerts {
     margin-left: auto;
   }
-}*/
+}

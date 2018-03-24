@@ -29,21 +29,22 @@
                         <li>
                             <a class="<?php echo ($sideBarActive==5)?'active':''?>" href="company.php"><i class="fa fa-building fa-fw"></i> Company </a>
                         </li>
-                        <!--<li>
-                            <a href="index.html"><i class="fa fa-pencil fa-fw"></i> Blog </a>
-                        </li>-->
-                        <!--<li>
+                        <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="jobseeker.html">Jobseeker</a>
+                                    <a class="<?php echo ($sideBarActive==6)?'active':''?>" href="user.php?type=e">Employer</a>
                                 </li>
                                 <li>
-                                    <a href="employer.html">Employer</a>
+                                    <a class="<?php echo ($sideBarActive==7)?'active':''?>" href="user.php?type=j">Jobseeker</a>
                                 </li>
+                                
                             </ul>
-                        </li>    <!-- /.nav-second-level -->
-
+                        </li>
+                        <!--<li>
+                            <a href="index.html"><i class="fa fa-pencil fa-fw"></i> Blog </a>
+                        </li>-->
+                        
 
                     </ul>
                 </div>

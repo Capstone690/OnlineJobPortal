@@ -169,5 +169,132 @@ if(isset($_POST["action"]))
             }
             }
      }
+     //user delete
+     if($_POST["action"] == "delete_user")
+     {
+      $query = "UPDATE user_account set is_delete='1' WHERE id = '".$_POST["user_id"]."'";
+      if(mysqli_query($db, $query))
+      {
+            echo 'success';
+      }else{
+          echo "error";
+      }
+     }
+     //change user status
+    if($_POST["action"] == "change_user_status")
+     {
+        $sql = "SELECT `is_active` FROM user_account WHERE id='".$_POST["user_id"]."' ";
+        $result = mysqli_query($db,$sql);
+        $count = mysqli_num_rows($result);
+        if($count == 1) {
+           $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+           $is_active = $row['is_active'];
+           if($is_active=='1'){
+            $change_status="0";
+            $html ="<i class='fa fa-ban fa-2x red'></i>";
+
+           }else{
+            $change_status="1";
+            $html="<i class='fa fa-check-circle fa-2x green'></i>";
+
+           }
+           $query = "UPDATE user_account set is_active='$change_status' WHERE id = '".$_POST["user_id"]."'";
+            if(mysqli_query($db, $query))
+            {
+                echo $html;
+            }else{
+                echo "error";
+            }
+            }
+     }
+      //approve user
+    if($_POST["action"] == "approve_user")
+     {
+        $sql = "SELECT `is_approved` FROM user_account WHERE id='".$_POST["user_id"]."' ";
+        $result = mysqli_query($db,$sql);
+        $count = mysqli_num_rows($result);
+        if($count == 1) {
+            $query = "UPDATE user_account set is_approved='1' WHERE id = '".$_POST["user_id"]."'";
+
+            if(mysqli_query($db, $query))
+            {
+                $html="<i class='fa fa-check-circle fa-2x green'></i>";
+                echo $html;
+            }else{
+                echo "error";
+            }
+            }
+     }
+     //delete image from user
+    if($_POST["action"] == "delete_profile_pic")
+     {
+      $query = "UPDATE user_account set user_image='' WHERE id = '".$_POST["user_id"]."'";
+      if(mysqli_query($db, $query))
+      {
+            echo 'Image Deleted from Database';
+      }else{
+          echo "error in image deleting";
+      }
+     }
+      //job delete
+     if($_POST["action"] == "delete_job")
+     {
+      $query = "UPDATE job_post set is_delete='1' WHERE id = '".$_POST["job_id"]."'";
+      if(mysqli_query($db, $query))
+      {
+            echo 'success';
+      }else{
+          echo "error";
+      }
+     }
+     //change user status
+    if($_POST["action"] == "change_job_status")
+     {
+        $sql = "SELECT `is_active` FROM job_post WHERE id='".$_POST["job_id"]."' ";
+        $result = mysqli_query($db,$sql);
+        $count = mysqli_num_rows($result);
+        if($count == 1) {
+           $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+           $is_active = $row['is_active'];
+           if($is_active=='1'){
+            $change_status="0";
+            $html ="<i class='fa fa-ban fa-2x red'></i>";
+
+           }else{
+            $change_status="1";
+            $html="<i class='fa fa-check-circle fa-2x green'></i>";
+
+           }
+           $query = "UPDATE job_post set is_active='$change_status' WHERE id = '".$_POST["job_id"]."'";
+            if(mysqli_query($db, $query))
+            {
+                echo $html;
+            }else{
+                echo "error";
+            }
+            }
+     }
+     //delete experience detail
+    if($_POST["action"] == "delete_experience")
+     {
+      $query = "DELETE FROM experience_detail WHERE id = '".$_POST["exp_id"]."'";
+      if(mysqli_query($db, $query))
+      {
+            echo 'success';
+      }else{
+          echo "error";
+      }
+     }
+     //delete job application
+    if($_POST["action"] == "delete_applied_job")
+     {
+      $query = "DELETE FROM job_post_activity WHERE id = '".$_POST["job_id"]."'";
+      if(mysqli_query($db, $query))
+      {
+            echo 'success';
+      }else{
+          echo "error";
+      }
+     }
 }
 ?>
