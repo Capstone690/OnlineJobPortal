@@ -3,6 +3,8 @@
  * File Name: manage-jobs.php
  * By: Dipali
  * Date: 02/23/2018
+ * Modified By:Dipali
+ * Modification: Added job status
  */
 
 require_once('include/session.php');
@@ -83,6 +85,7 @@ if($count > 0) {
                                         <th>Type</th>
                                         <th>Posted Date</th>
                                         <th>Location</th>
+                                        <th>Job Status</th>
                                         <th>Status</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
@@ -91,7 +94,7 @@ if($count > 0) {
                                 <tbody>
                                     <?php
                                         //display data
-                                        $sql = "SELECT `id`,posted_by_id, job_type_id,`job_title`, `posted_date`, `loc_street_address1`, `loc_street_address2`,`loc_city`, `loc_state`, `loc_country`, `loc_zip`, is_active FROM job_post WHERE is_delete='0' AND posted_by_id=".$userIdDb." ";
+                                        $sql = "SELECT `id`,posted_by_id, job_type_id,`job_title`, `posted_date`, `loc_street_address1`, `loc_street_address2`,`loc_city`, `loc_state`, `loc_country`, `loc_zip`, is_active, job_status FROM job_post WHERE is_delete='0' AND posted_by_id=".$userIdDb." ";
                                         $result = mysqli_query($db,$sql);
                                         $count = mysqli_num_rows($result);
                                         $rowNo=1;
@@ -100,6 +103,7 @@ if($count > 0) {
                                                 $recordId    = $content["id"];
                                                 $postedById  = $content["posted_by_id"];
                                                 $jobTypeId  = $content["job_type_id"];
+                                                $jobStatusId = $content["job_status"];
                                                 $jobTitle  = $content["job_title"];
                                                 $postedDate= $content["posted_date"];
                                                 $locStreetAddress1= $content["loc_street_address1"];
@@ -111,7 +115,9 @@ if($count > 0) {
                                                 $jobLocation = "<div class='location'>".$locCity.", ".$locState."</div>";
                                                 //get type
                                                 $jobType = get_job_type($jobTypeId);
-                                                
+                                                //get job status
+                                                $jobStatus = get_job_status($jobStatusId);
+
                                                 $isActive  = $content["is_active"];
                                                 $class     = ($rowNo%2==0) ? "even" : "odd";
                                                 ?>
@@ -120,7 +126,8 @@ if($count > 0) {
                                         <td><?php echo $jobType;?></td>
                                         <td><?php echo $postedDate;?></td>
                                         <td><?php echo $jobLocation;?></td>
-                                        
+                                        <td><?php echo $jobStatus;?></td>
+
                                         <td class="text-center">
                                             <button type="button" name="status" id="status_<?php echo $recordId?>" class=" status no-border" data-id="<?php echo $recordId ?>">
                                             <?php if($isActive==='1'){
@@ -178,7 +185,7 @@ if($count > 0) {
         $('#dataTables-example').DataTable({
             responsive: true,
             stateSave: true,
-            "aoColumns": [null,null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
+            "aoColumns": [null,null,null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
             
         });
         $("#dataTables-example_filter").css("text-align","right");

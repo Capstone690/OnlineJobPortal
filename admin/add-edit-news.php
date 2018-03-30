@@ -3,7 +3,8 @@
  * File Name: add-edit-news.php
  * By: Dipali
  * Date: 02/14/2018
- *
+ * Modifited BY: Dipali
+ * Modification:Removed restriction on published date
  */
 require_once('include/session.php');
 require_once("include/config.php");
@@ -271,7 +272,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add_news"]) || isset($
     <script>
     $(document).ready(function() {
         //restrict date to future date
-        var dtToday = new Date();
+        /*var dtToday = new Date();
         var month = dtToday.getMonth() + 1;
         var day = dtToday.getDate();
         var year = dtToday.getFullYear();
@@ -282,7 +283,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add_news"]) || isset($
             day = '0' + day.toString();
 
         var maxDate = year + '-' + month + '-' + day;
-            $('#publishedDate').attr('min', maxDate);
+            $('#publishedDate').attr('min', maxDate);*/
      //image delete
      $(document).on('click', '.delete', function(){
            var image_id = $(this).attr("id");

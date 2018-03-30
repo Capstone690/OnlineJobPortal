@@ -162,7 +162,7 @@ $sideBarActive=3;
                   type: 'post',
                   data:{article_id:article_id, action:action},
                   success: function(data, status) {
-                     $("#status"+article_id).html("");
+                     $("#record_"+article_id).html("");
                      $('#messages').html("<div class='alert alert-success fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a>Record deleted Successfully</div>");
                       //location.reload();
                   },

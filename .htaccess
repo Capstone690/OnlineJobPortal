@@ -1,0 +1,14 @@
+RewriteEngine on
+RewriteBase /OnlineJobPortal/   
+
+RewriteRule ^news-listing/([0-9]*)$ news-listing.php?page=$1 [QSA]
+RewriteRule ^news/(.+)$ news-detail.php?title=$1 [QSA]
+
+RewriteRule ^home index.php
+RewriteRule ^about about-us.php
+RewriteRule ^contact contact-us.php
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^\.]+)$ $1.php [QSA,NC,L]
+

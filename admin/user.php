@@ -98,6 +98,7 @@ if($count > 0) {
                                         <th>Email</th>
                                         <th style="<?php echo $hideJobSeeker?>">Company</th>
                                         <th style="<?php echo $hideJobSeeker?>">Jobs</th>
+                                        <th style="<?php echo $hideEmployer?>">Address</th>
                                         <th style="<?php echo $hideEmployer?>">Applied Jobs</th>
                                         <th>Status</th>
                                         <th>Approve</th>
@@ -122,7 +123,7 @@ if($count > 0) {
                                                 $class     = ($rowNo%2==0) ? "even" : "odd";
                                                 //get employer profile
                                                 $companyId =0;
-                                                 if($userType==='E'){
+                                                if($userType==='E'){
 
                                                       $sqlEmployer = "SELECT `company_id`
                                                     FROM employer_profile WHERE user_account_id='".$userId."' ";
@@ -134,12 +135,25 @@ if($count > 0) {
                                                             }
                                                   }
                                                 $companyName = get_company($companyId);
-                                                
+                                                 if($userType==='J'){
+
+                                                      $sqlJobSeeker = "SELECT `city`,state
+                                                    FROM job_seeker_profile WHERE user_account_id='".$userId."' ";
+                                                        $resultJobSeeker = mysqli_query($db,$sqlJobSeeker);
+                                                        $countJobSeeker = mysqli_num_rows($resultJobSeeker);
+                                                        if($countJobSeeker == 1) {
+                                                            $rowJobSeeker = mysqli_fetch_array($resultJobSeeker,MYSQLI_ASSOC);
+                                                            $location   = $rowJobSeeker["city"].", ".$rowJobSeeker["state"];
+                                                            }else{
+                                                                $location="-";
+                                                            }
+                                                  }
                                                 ?>
                                     <tr class="<?php echo $class?> gradeX" id="record_<?php echo $userId?>">
                                         <td><?php echo $name;?></td>
                                         <td><?php echo $email;?></td>
                                         <td  style="<?php echo $hideJobSeeker?>"><?php echo $companyName;?></td>
+                                        <td  style="<?php echo $hideEmployer?>"><?php echo $location;?></td>
                                         
                                         <td  style="<?php echo $hideJobSeeker?>" class="center text-center"><a href="manage-jobs.php?userid=<?php echo $userId;?>"><i class="fa fa-book fa-2x"></i></a></td>
                                         <td  style="<?php echo $hideEmployer?>" class="center text-center"><a href="applied-jobs.php?userid=<?php echo $userId;?>"><i class="fa fa-book fa-2x"></i></a></td>
@@ -217,7 +231,7 @@ if($count > 0) {
         $('#dataTables-example').DataTable({
             responsive: true,
             stateSave: true,
-            "aoColumns": [null,null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
+            "aoColumns": [null,null,null,null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
             
         });
         $("#dataTables-example_filter").css("text-align","right");

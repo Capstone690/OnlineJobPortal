@@ -285,6 +285,17 @@ if(isset($_POST["action"]))
           echo "error";
       }
      }
+     //delete experience detail
+    if($_POST["action"] == "delete_education")
+     {
+      $query = "DELETE FROM education_detail WHERE id = '".$_POST["edu_id"]."'";
+      if(mysqli_query($db, $query))
+      {
+            echo 'success';
+      }else{
+          echo "error";
+      }
+     }
      //delete job application
     if($_POST["action"] == "delete_applied_job")
      {
@@ -295,6 +306,44 @@ if(isset($_POST["action"]))
       }else{
           echo "error";
       }
+     }
+     //delete testimonial
+    if($_POST["action"] == "delete_testimonial")
+     {
+      $query = "DELETE FROM testimonial WHERE id = '".$_POST["testimonial_id"]."'";
+      if(mysqli_query($db, $query))
+      {
+            echo 'success';
+      }else{
+          echo "error";
+      }
+     }
+     //delete news
+    if($_POST["action"] == "change_testimonial_status")
+     {
+        $sql = "SELECT `is_active` FROM testimonial WHERE id='".$_POST["testimonial_id"]."' ";
+        $result = mysqli_query($db,$sql);
+        $count = mysqli_num_rows($result);
+        if($count == 1) {
+           $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+           $is_active = $row['is_active'];
+           if($is_active=='1'){
+            $change_status="0";
+            $html ="<i class='fa fa-ban fa-2x red'></i>";
+
+           }else{
+            $change_status="1";
+            $html="<i class='fa fa-check-circle fa-2x green'></i>";
+
+           }
+           $query = "UPDATE testimonial set is_active='$change_status' WHERE id = '".$_POST["testimonial_id"]."'";
+            if(mysqli_query($db, $query))
+            {
+                echo $html;
+            }else{
+                echo "error";
+            }
+            }
      }
 }
 ?>

@@ -63,15 +63,16 @@ $sideBarActive=4;
                                 <thead>
                                     <tr>
                                         <th>Title</th>
-                                        <th>Status</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th class="text-center">Icon</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Edit</th>
+                                        <th class="text-center">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                         //display data
-                                        $sql = "SELECT `id`,`business_stream_name`,`is_active` FROM bussiness_stream WHERE is_removed='0' ";
+                                        $sql = "SELECT `id`,`business_stream_name`,font_icon,`is_active` FROM bussiness_stream WHERE is_removed='0' ";
                                         $result = mysqli_query($db,$sql);
                                         $count = mysqli_num_rows($result);
                                         $rowNo=1;
@@ -79,12 +80,14 @@ $sideBarActive=4;
                                               while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
                                                 $categoryId = $content["id"];
                                                 $title = $content["business_stream_name"];
+                                                $icon = $content["font_icon"];
                                                 $isActive = $content["is_active"];
                                                 $class = ($rowNo%2==0)?"even":"odd";
                                                 
                                                 ?>
                                     <tr class="<?php echo $class?> gradeX" id="record_<?php echo $categoryId?>">
                                         <td><?php echo $title;?></td>
+                                        <td class="text-center"><i class="<?php echo $icon?>" aria-hidden="true"></i></td>
                                         <td class="text-center">
                                             <button type="button" name="status" id="status_<?php echo $categoryId?>" class=" status no-border" data-id="<?php echo $categoryId ?>">
                                             <?php if($isActive==='1'){
@@ -142,7 +145,7 @@ $sideBarActive=4;
         $('#dataTables-example').DataTable({
             responsive: true,
             stateSave: true,
-            "aoColumns": [null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
+            "aoColumns": [null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
         });
         $("#dataTables-example_filter").css("text-align","right");
         $("#dataTables-example_paginate").css("text-align","right");

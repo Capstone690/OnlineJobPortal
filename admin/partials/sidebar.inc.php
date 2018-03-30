@@ -21,6 +21,9 @@
                             <a class="<?php echo ($sideBarActive==2)?'active':''?>" href="content.php"><i class="fa fa-clipboard fa-fw"></i> Content </a>
                         </li>
                         <li>
+                            <a class="<?php echo ($sideBarActive==8)?'active':''?>" href="testimonial.php"><i class="fa fa-image fa-fw"></i> Testimonial </a>
+                        </li>
+                        <li>
                             <a class="<?php echo ($sideBarActive==3)?'active':''?>" href="news.php"><i class="fa fa-file fa-fw"></i> News </a>
                         </li>
                         <li>

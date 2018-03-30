@@ -5,6 +5,9 @@
 
 define("TARGET_DIR", "uploads");
 define("TARGET_DIR_FRONT", "../uploads");
+$dir = $_SERVER['SERVER_NAME'];
+define("CURRENT_URL", "http://".$dir."/OnlineJobPortal/");
+$changeNavBar=false;
 
 function test_input($data) {
   $data = trim($data);
@@ -120,5 +123,69 @@ function get_job_type_options($jobTypeId){
     }else{
         return $option;
     }
+}
+function get_job_status($jobStatusId){
+    global $db;
+    $sql = "SELECT job_status FROM job_status WHERE job_status_id=".$jobStatusId." ";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        $content = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        return $content["job_status"];
+    }else{
+        return "-";
+    }
+
+}
+function get_job_status_options($jobStatusId){
+    global $db;
+    $option="<option value=''>Select</option>";
+    $sql = "SELECT job_status_id, job_status FROM job_status";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $id=$content["job_status_id"];
+                $job_status=$content["job_status"];
+                if($jobStatusId==$id){
+                    $select="selected";
+                }else{
+                    $select="";
+                }
+                $option.="<option $select value='$id'>$job_status</option>";
+        }
+        return $option;
+    }else{
+        return $option;
+    }
+}
+function no_of_vaccancies(){
+    global $db;
+    $sql = "SELECT id FROM job_post inner join job_status on job_post.job_status = job_status.job_status_id WHERE job_status.job_status='Open' ";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    return  $count;
+    
+}
+function isUserLoggedIn(){
+    global $db;
+    //global $loggedInUser;
+    if(!isset($_SESSION['login_user_front'])){
+      //header("location:sign-up");
+        return 0;
+   }else{
+        $userEmail=$_SESSION['login_user_front'];
+        $sql = "SELECT user_account.`id`, `first_name`, `last_name`, `email`,`user_image`,user_type.user_type_name
+        FROM user_account INNER JOIN user_type ON user_account.user_type_id=user_type.id WHERE email='".$userEmail."' AND is_delete='0' AND is_approved='1' AND is_active='1' ";
+        $result = mysqli_query($db,$sql);
+        $count = mysqli_num_rows($result);
+        if($count == 1) {
+            $loggedInUser = mysqli_fetch_array($result,MYSQLI_ASSOC);
+            return $loggedInUser;
+        }else{
+            return 0;
+        }
+
+   }
 }
 ?>

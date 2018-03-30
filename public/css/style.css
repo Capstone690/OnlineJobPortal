@@ -207,3 +207,133 @@ footer .container{
 footer h5{
 	letter-spacing: 0.06em;
 }
+/*===========================ABUOT US PAGE====================*/
+.left-hr{
+	margin-left: 0;
+}
+
+.our-team .row{
+	padding-top:5%;
+}
+.our-team img{
+	width:100%;
+}
+.our-team h5{
+margin:20px 0;
+}
+.our-team .row:last-child{
+padding-bottom: 5%;
+}
+.contact-form{
+	margin-top:7%;
+}
+.right-contact{
+	    border-bottom: 1px solid grey;
+    padding: 0px 0 10px 0;
+    font-size: 29px;
+}
+.right-contact-p{
+	color:#434345;
+}
+.contact-right-side{
+	margin-top:12%; 
+}
+/*login registration form*/
+.login-reg{
+color:#7a7a7a;
+transition: color .2s ease-in;
+text-decoration: none;
+
+}
+.tab-active{
+	color:#434345;
+	text-decoration: underline;
+}
+#login, #reg{
+	  transition: all 2s linear;
+
+}
+.pagination >.active a{
+	border:1px solid #007bff;
+}
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+  color: #a94442;
+}
+.has-error .form-control {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.has-error .form-control:focus {
+  border-color: #843534;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+}
+.has-error .input-group-addon {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #a94442;
+}
+.has-error .form-control-feedback {
+  color: #a94442;
+}
+.has-feedback label ~ .form-control-feedback {
+  top: 25px;
+}
+.has-feedback label.sr-only ~ .form-control-feedback {
+  top: 0;
+}
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #737373;
+}
+}
+#edit_profile_pic{
+  width: 100px;
+  height: 80px;
+  border:1px solid black;
+  margin:5px 0 10px 0;
+}
+
+#edit_profile_pic img{
+  width: 100px;
+  height: 80px;
+}
+
+hr.style-seven {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+}
+hr.style-seven:after {
+    content: "*";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}
+#datatables-example_wrapper{
+	margin-bottom: 15px;
+}
+.green{
+  color: green;
+}
+.red{
+  color: red;
+}

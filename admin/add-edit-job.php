@@ -3,7 +3,10 @@
  * File Name: add-edit-job.php
  * By: Dipali
  * Date: 02/23/2018
- * 
+ * Modified By: Dipali
+ * Modified Date: 03/02/2018
+ * Modification:Added job status (draft,open, on hold,closed, filled)
+ *
  */
 require_once('include/session.php');
 require_once("include/config.php");
@@ -36,6 +39,7 @@ $postedDate ="";
 $jobPostedBy=$userId;
 
 $jobTypeId    = "";
+$jobStatusId="";
 $jobFunction="";
 $jobSkills="";
 $locStreetAddress1 ="";
@@ -57,7 +61,7 @@ $btn="Update";
 
 $id =  trim($_GET["id"]);
 $sql = "SELECT `id`, `job_title`, `posted_by_id`, `job_type_id`, `company_id`, `posted_date`, `job_description`, `job_function`, `job_skills`,
-    `loc_street_address1`, `loc_street_address2`, `loc_city`, `loc_state`, `loc_country`, `loc_zip`
+    `loc_street_address1`, `loc_street_address2`, `loc_city`, `loc_state`, `loc_country`, `loc_zip`, job_status
         FROM job_post WHERE id='".$id."' ";
 $result = mysqli_query($db,$sql);
 $count = mysqli_num_rows($result);
@@ -70,6 +74,8 @@ if($count == 1) {
         $postedDate =$row["posted_date"];
         $jobTypeId    = $row["job_type_id"];
         $jobType = get_job_type($jobTypeId);
+        $jobStatusId= $row["job_status"];
+        $jobStatus = get_job_status($jobStatusId);
         
         $jobFunction=$row["job_function"];
         $jobSkills=$row["job_skills"];
@@ -97,6 +103,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
         $companyId   = test_input($_POST["companyId"]);
         $postedDate =test_input($_POST["postedDate"]);
         $jobTypeId    = test_input($_POST["jobTypeId"]);
+        $jobStatusId    = test_input($_POST["jobStatusId"]);
+
         $jobFunction=test_input($_POST["jobFunction"]);
         $jobSkills=test_input($_POST["jobSkills"]);
         $locStreetAddress1 =test_input($_POST["locStreetAddress1"]);
@@ -113,8 +121,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
         if($error===""){
            //check if add/edit page
            if(isset($_POST["add"])){
-                         $quer = "INSERT INTO job_post (`job_title`, `posted_by_id`, `job_type_id`, `company_id`, `posted_date`, `job_description`, `job_function`, `job_skills`, `loc_street_address1`, `loc_street_address2`, `loc_city`, `loc_state`, `loc_country`, `loc_zip`,is_active,is_delete) VALUES
-                                ('$jobTitle', '$jobPostedBy','$jobTypeId', '$companyId', '$postedDate', '$jobDescription','$jobFunction','$jobSkills','$locStreetAddress1','$locStreetAddress2','$locCity','$locState','$locCountry','$locZip','1','0')";
+                         $quer = "INSERT INTO job_post (`job_title`, `posted_by_id`, `job_type_id`, job_status, `company_id`, `posted_date`, `job_description`, `job_function`, `job_skills`, `loc_street_address1`, `loc_street_address2`, `loc_city`, `loc_state`, `loc_country`, `loc_zip`,is_active,is_delete) VALUES
+                                ('$jobTitle', '$jobPostedBy','$jobTypeId','$jobStatusId', '$companyId', '$postedDate', '$jobDescription','$jobFunction','$jobSkills','$locStreetAddress1','$locStreetAddress2','$locCity','$locState','$locCountry','$locZip','1','0')";
                         $res = mysqli_query($db,$quer);
                         //get recent generated id
                         $recordId=mysqli_insert_id($db);
@@ -135,7 +143,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
                     $count = mysqli_num_rows($result);
                    if($count == 1) {
 
-                        $quer = "UPDATE job_post set job_title='" .$jobTitle. "', job_type_id='" .$jobTypeId. "', posted_date='" .$postedDate. "', job_description='" .$jobDescription. "', job_function='" .$jobFunction. "', job_skills='" .$jobSkills. "', loc_street_address1='" .$locStreetAddress1. "',
+                        $quer = "UPDATE job_post set job_title='" .$jobTitle. "', job_type_id='" .$jobTypeId. "', job_status='" .$jobStatusId. "', posted_date='" .$postedDate. "', job_description='" .$jobDescription. "', job_function='" .$jobFunction. "', job_skills='" .$jobSkills. "', loc_street_address1='" .$locStreetAddress1. "',
                                 loc_street_address2='" .$locStreetAddress2. "', loc_city='" .$locCity. "', loc_state='" .$locState. "', loc_country='" .$locCountry. "', loc_zip='" .$locZip. "'";
                         
                         $quer .= " WHERE id='".$id."' ";
@@ -236,6 +244,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
                                             <div class="help-block with-errors"></div>
                                             <select class=" form-control" id="jobTypeId" name="jobTypeId" required="true">
                                                 <?php echo get_job_type_options($jobTypeId);?>
+                                            </select>
+                                    </div>
+                                    <div class="form-group">
+                                            <label  class="control-label">Job Status</label>
+                                            <div class="help-block with-errors"></div>
+                                            <select class=" form-control" id="jobStatusId" name="jobStatusId" required="true">
+                                                <?php echo get_job_status_options($jobStatusId);?>
                                             </select>
                                     </div>
                                     <div class="form-group">

@@ -1,34 +1,17 @@
 <?php
 /*
- * File Name: applied-jobs.php
+ * File Name: testimonial.php
  * By: Dipali
- * Date: 02/28/2018
+ * Date: 03/10/2018
+ *
  */
 
 require_once('include/session.php');
 require_once("include/config.php");
-require_once("include/function.php");
-//check user type
-if(isset($_GET["userid"]) && !empty(trim($_GET["userid"]))){
-    $userId=$_GET["userid"];//lower case
-}else{
-    //page not found
-
-}
-$browserTitle = "Applied Job";
-$sideBarActive=7;
+$browserTitle = "Manage Testimonial";
 $error="";
 $successMsg="";
-//get user type id
-$sql = "SELECT user_account.`id`, user_account.`first_name`,user_account.last_name, user_type.user_type_name FROM user_account INNER JOIN user_type ON user_account.user_type_id = user_type.id WHERE user_account.id='".$userId."' AND user_type.user_type_name='J' ";
-$result = mysqli_query($db,$sql);
-$count = mysqli_num_rows($result);
-if($count > 0) {
-    $userArray = mysqli_fetch_array($result,MYSQLI_ASSOC);
-    $userIdDb=$userArray['id'];
-}else{
-    //page not found
-}
+$sideBarActive=8;
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,7 +33,7 @@ if($count > 0) {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header"><?php echo $browserTitle;?></h1>
+                        <h1 class="page-header">Manage Testimonial</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -67,68 +50,63 @@ if($count > 0) {
                            <?php endif ?>
                         <div id="messages"></div>
                         <div class="panel-heading">
-                            <?php echo $browserTitle?>
+                            Manage Testimonial
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                         <!--
                         <div class="text-right" style="margin-bottom:10px;">
-                            <a class="btn btn-primary " href="apply-for-job.php?userid=<?= $userIdDb;?>">Apply for Job</a>
+                            <a class="btn btn-primary " href="add-edit-testimonial.php">Add Testimonial</a>
                         </div>
-                         -->
-                             <form role="form"  id="frm_applied_jobs"  name="frm_applied_jobs" method="POST" enctype="multipart/form-data">
+                             <form role="form"  id="frm_testimonial"  name="frm_testimonial" method="POST" enctype="multipart/form-data">
                                    
                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Company Name</th>
-                                        <th>Job Title</th>
-                                        <th>Location</th>
-                                        <th>Date Applied</th>
-                                        <th>Status</th>
-                                        <th>Detail</th>
-                                        <th>Delete Application</th>
+                                        <th>Testimonial</th>
+                                        <th>Text</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Edit</th>
+                                        <th class="text-center">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                         //display data
-                                        $sql = " select temp.*,c.company_name from
-(select user_account.id as user_id,job_post.job_title as job_title,job_post.loc_city as loc_city,job_post.loc_state as loc_state,a.apply_date as apply_date,a.status as status,a.id as id,job_post.company_id as company_id
-from job_post_activity a
-inner join user_account on a.user_account_id = user_account.id
-inner join job_post on a.job_post_id = job_post.id WHERE user_account.id='".$userIdDb."') temp
-inner join company c on temp.company_id = c.id";
+                                        $sql = "SELECT `id`,`name`,text,`is_active` FROM testimonial ";
                                         $result = mysqli_query($db,$sql);
                                         $count = mysqli_num_rows($result);
                                         $rowNo=1;
                                         if($count > 0) {
                                               while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                                                $recordId    = $content["id"];
-                                                $userId  = $content["user_id"];
-                                                $jobTitle  = $content["job_title"];
-                                                $applyDate  = $content["apply_date"];
-                                                $companyId= $content["company_id"];
-                                                $companyName= $content["company_name"];
-                                                $status = $content["status"];
-                                                if($status=="P"){
-                                                    $status="Pending";
+                                                $id = $content["id"];
+                                                $name = $content["name"];
+                                                $text = $content["text"];
+                                                if(strlen($text) > 120) {
+                                                    $text = substr($text, 0, 120).'&hellip;';
                                                 }
-                                                $locCity = $content["loc_city"];
-                                                $locState=$content["loc_state"];
-                                                $jobLocation = "<div class='location'>".$locCity.", ".$locState."</div>";
-
-                                                $isExpired="";
-                                                $class     = ($rowNo%2==0) ? "even" : "odd";
+                                                $isActive = $content["is_active"];
+                                                $class = ($rowNo%2==0)?"even":"odd";
+                                                
                                                 ?>
-                                    <tr class="<?php echo $class?> gradeX" id="record_<?php echo $recordId?>">
-                                        <td><?php echo $companyName;?></td>
-                                        <td><?php echo $jobTitle;?></td>
-                                        <td><?php echo $jobLocation;?></td>
-                                        <td><?php echo $applyDate;?></td>
-                                        <td><?php echo $status?></td>
-                                        <td class="center text-center"><a href="job-detail.php?id=<?= $recordId;?>&userid=<?php echo $userId;?>"><i class="fa fa-file fa-2x"></i></a></td>
-                                        <td class="center text-center"><button type="button" name="delete" class=" btn-danger delete no-border" id="<?php echo $recordId ?>"><i class="fa fa-trash fa-2x"></i></button></td>
+                                    <tr class="<?php echo $class?> gradeX" id="record_<?php echo $id?>">
+                                        <td><?php echo $text;?></td>
+                                        <td><?php echo $name;?></td>
+                                       
+                                        <td class="text-center">
+                                            <button type="button" name="status" id="status_<?php echo $id?>" class=" status no-border" data-id="<?php echo $id ?>">
+                                            <?php if($isActive==='1'){
+                                                ?>
+                                            <i class="fa fa-check-circle fa-2x green"></i>
+                                            <?php
+                                            }else{
+                                                ?>
+                                            <i class="fa fa-ban fa-2x red"></i>
+                                            <?php
+                                            }?>
+                                            </button>
+                                        </td>
+                                        <td class="center text-center"><a href="add-edit-testimonial.php?id=<?php echo $id;?>"><i class="fa fa-edit fa-2x"></i></a></td>
+                                        <td class="center text-center"><button type="button" name="delete" class=" btn-danger delete no-border" id="<?php echo $id ?>"><i class="fa fa-trash fa-2x"></i></button></td>
                                     </tr>
                                     <?php
                                                 $rowNo++;
@@ -137,7 +115,7 @@ inner join company c on temp.company_id = c.id";
                                          }else{
                                              ?>
                                      <tr class="even gradeX">
-                                        <td colspan="8">No records  found</td>
+                                        <td colspan="5">No records  found</td>
                                     </tr>
                                       <?php
                                          }
@@ -171,26 +149,23 @@ inner join company c on temp.company_id = c.id";
         $('#dataTables-example').DataTable({
             responsive: true,
             stateSave: true,
-            "aoColumns": [null,null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
-            
+            "aoColumns": [null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
         });
         $("#dataTables-example_filter").css("text-align","right");
         $("#dataTables-example_paginate").css("text-align","right");
-       
         //delete record
      $(document).on('click', '.delete', function(){
-             var job_id = $(this).attr("id");
-             var action = "delete_applied_job";
+             var testimonial_id = $(this).attr("id");
+             var action = "delete_testimonial";
 
          if(confirm("Are you sure you want to remove this record from database?"))
           {
-           // $( "#frm_add_update_news" ).submit();
               $.ajax({
                   url: 'include/action.php',
                   type: 'post',
-                  data:{job_id:job_id, action:action},
+                  data:{testimonial_id:testimonial_id, action:action},
                   success: function(data, status) {
-                     $("#record_"+job_id).html("");
+                     $("#record_"+testimonial_id).html("");
                      $('#messages').html("<div class='alert alert-success fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a>Record deleted Successfully</div>");
                       //location.reload();
                   },
@@ -206,7 +181,33 @@ inner join company c on temp.company_id = c.id";
           }
          });
 
-     
+         //change status
+     $(document).on('click', '.status', function(){
+             var testimonial_id = $(this).attr("data-id");
+             var action = "change_testimonial_status";
+
+         if(confirm("Are you sure you want to change status?"))
+          {
+              $.ajax({
+                  url: 'include/action.php',
+                  type: 'post',
+                  data:{testimonial_id:testimonial_id, action:action},
+                  success: function(data, status) {
+                     $("#status_"+testimonial_id).html(data);
+                     $('#messages').html("<div class='alert alert-success fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a>Status changed Successfully</div>");
+                      //location.reload();
+                  },
+                  error: function(xhr, desc, err) {
+                     $('#messages').html("<div class='alert alert-error fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a>Error in status updation.</div>");
+
+                  }
+                }); // end ajax call
+
+          }else
+          {
+           return false;
+          }
+         });
     });
     </script>
 

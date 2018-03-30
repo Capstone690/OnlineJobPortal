@@ -1,85 +1,67 @@
 <?php
 /*
- * File Name: add-edit-category.php
+ * File Name: add-edit-testimonial.php
  * By: Dipali
- * Date: 02/15/2018
- * Modified By :Dipali
- * Modification date: 03/02/2018
- * Modification:Added font awsome icon input
+ * Date: 03/10/2018
  */
 require_once('include/session.php');
 require_once("include/config.php");
 require_once ("include/function.php");
 $error="";
 $successMsg="";
-$sideBarActive=4;
+$sideBarActive=8;
 //display content
-$categoryTitle    = "";
-$icon="";
+$text = "";
+$name="";
 // Check existence of id parameter before processing further
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 //edit page
-$browserTitle = "Edit Business Stream";
-$btnName="edit_category";
+$browserTitle = "Edit Testimonial";
+$btnName="edit_testimonial";
 $btn="Update";
 
 // Get URL parameter
 
 $id =  trim($_GET["id"]);
-$sql = "SELECT `id`, `business_stream_name`,font_icon
-        FROM bussiness_stream WHERE id='".$id."' ";
+$sql = "SELECT `id`, `name`,text
+        FROM testimonial WHERE id='".$id."' ";
 $result = mysqli_query($db,$sql);
 $count = mysqli_num_rows($result);
 if($count == 1) {
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $categoryId       = $row["id"];
-      $categoryTitle    = $row["business_stream_name"];
-      $icon            = $row["font_icon"];
+      $id      = $row["id"];
+      $name    = $row["name"];
+      $text    = $row["text"];
  }
 
 }else{
-    $browserTitle = "Add Business Stream";
-    $btnName="add_category";
+    $browserTitle = "Add Testimonial";
+    $btnName="add_testimonial";
     $btn="Add";
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add_category"]) || isset($_POST["edit_category"]))) {
+if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add_testimonial"]) || isset($_POST["edit_testimonial"]))) {
 
-    $categoryTitle       = test_input($_POST["categoryTitle"]);
-    $icon                = test_input($_POST["fontIcon"]);
+    $name       = test_input($_POST["name"]);
+    $text       = test_input($_POST["text"]);
            //check if add/edit page
-           if(isset($_POST["add_category"])){
-               //check for duplicate record
-                $sql = "SELECT id FROM bussiness_stream WHERE business_stream_name='$categoryTitle' AND is_removed='0'";
-                $result = mysqli_query($db,$sql);
-                $count = mysqli_num_rows($result);
-                if($count == 1) {
-                     $error="Duplicate record.";
-                }else{
-                        $quer = "INSERT INTO bussiness_stream (business_stream_name,font_icon, is_active,is_removed) VALUES ('$categoryTitle','$icon', '1', '0')";
-                        $res = mysqli_query($db,$quer);
-                        if($res){
-                           $successMsg ="Record added successfully";
-                           $_SESSION['success_message'] = $successMsg;
-                           header("location:category.php");
-                        }else{
-                            $error="Error in adding record.";
-                        }
-                }
-
-           }else if(isset($_POST["edit_category"])){
-                    $sql = "SELECT id FROM bussiness_stream WHERE id='".$id."'";
+           if(isset($_POST["add_testimonial"])){
+              $quer = "INSERT INTO testimonial (name,text, is_active) VALUES ('$name','$text', '1')";
+              $res = mysqli_query($db,$quer);
+              if($res){
+                  $successMsg ="Record added successfully";
+                  $_SESSION['success_message'] = $successMsg;
+                  header("location:testimonial.php");
+              }else{
+                  $error="Error in adding record.";
+              }
+              
+           }else if(isset($_POST["edit_testimonial"])){
+                    $sql = "SELECT id FROM testimonial WHERE id='".$id."'";
                     $result = mysqli_query($db,$sql);
                     $count = mysqli_num_rows($result);
                    if($count == 1) {
-                       $sqlDuplicate = "SELECT id FROM bussiness_stream WHERE business_stream_name='$categoryTitle' AND is_removed='0' AND id!='".$id."'";
-                       $resultDuplicate = mysqli_query($db,$sqlDuplicate);
-                       $countDupli = mysqli_num_rows($resultDuplicate);
-                       if($countDupli == 1) {
-                             $error="Duplicate record.";
-                        }else{
-
-                        $quer = "UPDATE bussiness_stream set business_stream_name='" .$categoryTitle. "', font_icon='" .$icon. "'";
+                        $quer = "UPDATE testimonial set name='" .$name. "', text='" .$text. "'";
                         $quer .= " WHERE id='".$id."' ";
                         $res = mysqli_query($db,$quer);
                         if($res){
@@ -87,11 +69,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add_category"]) || iss
                            $successMsg ="Record updated successfully";
                            $_SESSION['success_message'] = $successMsg;
 
-                           header("location:category.php");
+                           header("location:testimonial.php");
                         }else{
                              $error = "Error in update";
                         }
-                    }
+                    
                }else{
                     $error = "Record not found";
                }
@@ -144,28 +126,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add_category"]) || iss
                     </div>
                     <?php } ?>
                         <div class="panel-heading">
-                            Business Stream
+                            Testimonial
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-10">
-                                    <form role="form"  data-toggle="validator" id="frm_add_update_category"  name="frm_add_update_category" method="POST" enctype="multipart/form-data">
+                                    <form role="form"  data-toggle="validator" id="frm_add_update_testimonial"  name="frm_add_update_testimonial" method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
-                                            <label  class="control-label">Business Stream</label>
+                                        <label  class="control-label">Text</label>
                                             <div class="help-block with-errors"></div>
-                                            <input class="form-control" id="category_title" name="categoryTitle" value="<?php echo $categoryTitle;?>" required="true">
+                                            <textarea  class="form-control" id="text" name="text" required="true"><?php echo $text;?></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label  class="control-label">Icon</label>&nbsp;<span>search for icon that suits your business from <a href="https://fontawesome.com/icons?d=gallery" target="_blank">font awesome</a> and paste classname </span>
+                                            <label  class="control-label">Name</label>
                                             <div class="help-block with-errors"></div>
-                                            <input class="form-control" id="font_icon" name="fontIcon" value="<?php echo $icon;?>" required="true">
-                                            
+                                            <input class="form-control" id="name" name="name" value="<?php echo $name;?>" required="true">
                                     </div>
-                                        <?php if($icon!=""){
-                                            ?>
-                                        <div style="margin-bottom:10px;"><i class="<?php echo $icon?>"></i></div>
-                                        <?php
-                                        }?>
+                                    
                                         <button type="submit"name="<?php echo $btnName?>" class="btn btn-default btn-primary"><?php echo $btn?></button>
                                         <button type="reset"  id="back" class="btn btn-default btn-primary">Cancel</button>
                                     </form>
@@ -189,8 +166,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add_category"]) || iss
     <script>
     $(document).ready(function() {
        //validation
-       addRequiredMark('frm_add_update_category');
-       $('#frm_add_update_category').validator()
+       addRequiredMark('frm_add_update_testimonial');
+       $('#frm_add_update_testimonial').validator()
 });
   </script>
 
