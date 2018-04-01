@@ -44,7 +44,7 @@ $classNav="navbar fixed-top navbar-expand-lg navbar-dark ";
                 //print_r( $userLoggedIn);
                 if($userLoggedIn!=0){
                     if($userLoggedIn["user_type_name"]=="J"){
-                            $jobLink='applied-jobs';
+                            $jobLink='jobs';
                         }else{
                             $jobLink='manage-jobs';
                         }

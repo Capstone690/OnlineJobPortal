@@ -139,9 +139,6 @@ $companyId      = isset($_POST["companyId"])      ? ($_POST["companyId"]) : "";/
 	
 <!--=====================================NAVIGATION : ends here ======================== -->
 
-<!--=====================================FRONT SEARCH : starts here ======================== -->
-
-<!-- =============================Who We Are ============================= -->
     <main role="main" class="container-fluid">
 
 <div class="container home-heading latest-news">

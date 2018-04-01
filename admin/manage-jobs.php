@@ -6,6 +6,7 @@
  * Modified By:Dipali
  * Modification: Added job status
  */
+ $isSession=0;
 
 require_once('include/session.php');
 require_once("include/config.php");

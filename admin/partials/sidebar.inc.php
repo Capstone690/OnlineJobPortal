@@ -17,9 +17,9 @@
                         <li>
                             <a class="<?php echo ($sideBarActive==1)?'active':''?>" href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <li>
+                        <!--<li>
                             <a class="<?php echo ($sideBarActive==2)?'active':''?>" href="content.php"><i class="fa fa-clipboard fa-fw"></i> Content </a>
-                        </li>
+                        </li>-->
                         <li>
                             <a class="<?php echo ($sideBarActive==8)?'active':''?>" href="testimonial.php"><i class="fa fa-image fa-fw"></i> Testimonial </a>
                         </li>

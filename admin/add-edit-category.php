@@ -7,6 +7,8 @@
  * Modification date: 03/02/2018
  * Modification:Added font awsome icon input
  */
+ $isSession=0;
+
 require_once('include/session.php');
 require_once("include/config.php");
 require_once ("include/function.php");

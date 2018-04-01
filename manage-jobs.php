@@ -8,7 +8,6 @@ $isSession=1;
 require_once('admin/include/session.php');
 require_once("admin/include/config.php");
 require_once("admin/include/function.php");
-$browserTitle="Job Seeker Profile";
 $changeNavBar=True;
 
 $browserTitle = "Manage Job";
@@ -56,14 +55,14 @@ if($count == 1) {
 	<div class="col">
             <h2 class=" text-center ">Manage Jobs</h2><hr class=" text-center ">
                 <?php if (isset($_SESSION['success_message'])): ?>
-                            <div class="alert alert-success fade in">
+                            <div class="alert alert-success">
                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                                 <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']);?>
                             </div>
                 <?php endif ?>
                 <div id="messages"></div>
                 <div class="text-right" style="margin-bottom:10px;padding-right: 15px;">
-                      <a class="btn btn-primary " href="add-edit-job.php?userid=<?= $userIdDb;?>">Add Jobs</a>
+                      <a class="btn btn-primary " href="add-edit-job">Add Jobs</a>
                 </div>
                         
      <form role="form"  id="frm_jobs"  name="frm_jobs" method="POST" enctype="multipart/form-data">
@@ -129,7 +128,7 @@ if($count == 1) {
          }?>
          </button>
          </td>
-         <td class="center text-center"><a href="add-edit-job.php?id=<?= $recordId;?>&userid=<?php echo $postedById;?>"><i class="fa fa-edit fa-2x"></i></a></td>
+         <td class="center text-center"><a href="add-edit-job/<?= $recordId;?>"><i class="fa fa-edit fa-2x"></i></a></td>
          <td class="center text-center"><button type="button" name="delete" class=" btn-danger delete no-border" id="<?php echo $recordId ?>"><i class="fa fa-trash fa-2x"></i></button></td>
          </tr>
          <?php
@@ -158,77 +157,7 @@ if($count == 1) {
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <!--<script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true,
-            stateSave: true,
-            "aoColumns": [null,null,null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
-            
-        });
-        $("#dataTables-example_filter").css("text-align","right");
-        $("#dataTables-example_paginate").css("text-align","right");
-       
-        //delete record
-     $(document).on('click', '.delete', function(){
-             var job_id = $(this).attr("id");
-             var action = "delete_job";
-
-         if(confirm("Are you sure you want to remove this record from database?"))
-          {
-           // $( "#frm_add_update_news" ).submit();
-              $.ajax({
-                  url: 'admin/include/action.php',
-                  type: 'post',
-                  data:{job_id:job_id, action:action},
-                  success: function(data, status) {
-                     $("#record_"+job_id).html("");
-                     $('#messages').html("<div class='alert alert-success '><a href='#' class='close' data-dismiss='alert'>&times;</a>Record deleted Successfully</div>");
-                      //location.reload();
-                  },
-                  error: function(xhr, desc, err) {
-                     $('#messages').html("<div class='alert alert-error '><a href='#' class='close' data-dismiss='alert'>&times;</a>Error in record deletion.</div>");
-
-                  }
-                }); // end ajax call
-
-          }else
-          {
-           return false;
-          }
-         });
-
-         //change status
-     $(document).on('click', '.status', function(){
-             var job_id = $(this).attr("data-id");
-             var action = "change_job_status";
-
-         if(confirm("Are you sure you want to change status?"))
-          {
-           // $( "#frm_add_update_news" ).submit();
-              $.ajax({
-                  url: 'admin/include/action.php',
-                  type: 'post',
-                  data:{job_id:job_id, action:action},
-                  success: function(data, status) {
-                     $("#status_"+job_id).html(data);
-                     $('#messages').html("<div class='alert alert-success '><a href='#' class='close' data-dismiss='alert'>&times;</a>Status changed Successfully</div>");
-                      //location.reload();
-                  },
-                  error: function(xhr, desc, err) {
-                     $('#messages').html("<div class='alert alert-error '><a href='#' class='close' data-dismiss='alert'>&times;</a>Error in status updation.</div>");
-
-                  }
-                }); // end ajax call
-
-          }else
-          {
-           return false;
-          }
-         });
-     
-    });
-    </script>-->
+    
 <script>
 $(document).ready(function() {
     $('#datatables-example').DataTable(

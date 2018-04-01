@@ -6,6 +6,8 @@
  * Modifited BY: Dipali
  * Modification:Removed restriction on published date
  */
+ $isSession=0;
+
 require_once('include/session.php');
 require_once("include/config.php");
 require_once ("include/function.php");

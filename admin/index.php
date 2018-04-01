@@ -1,9 +1,11 @@
 <?php
+ $isSession=0;
+
    include('include/session.php');
    require_once("include/config.php");
 $browserTitle = "Dashboard";
 $sideBarActive=1;
-
+      
 ?>
 
 <!DOCTYPE html>

@@ -4,6 +4,7 @@
  * By: Dipali
  * Date: 02/28/2018
  */
+ $isSession=0;
 
 require_once('include/session.php');
 require_once("include/config.php");
@@ -97,7 +98,7 @@ if($count > 0) {
 (select user_account.id as user_id,job_post.job_title as job_title,job_post.loc_city as loc_city,job_post.loc_state as loc_state,a.apply_date as apply_date,a.status as status,a.id as id,job_post.company_id as company_id
 from job_post_activity a
 inner join user_account on a.user_account_id = user_account.id
-inner join job_post on a.job_post_id = job_post.id WHERE user_account.id='".$userIdDb."') temp
+inner join job_post on a.job_post_id = job_post.id WHERE user_account.id='".$userIdDb."' AND a.is_removed='0') temp
 inner join company c on temp.company_id = c.id";
                                         $result = mysqli_query($db,$sql);
                                         $count = mysqli_num_rows($result);

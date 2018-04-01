@@ -2,28 +2,38 @@
 /*
  * File Name: add-edit-job.php
  * By: Dipali
- * Date: 02/23/2018
- * Modified By: Dipali
- * Modified Date: 03/02/2018
- * Modification:Added job status (draft,open, on hold,closed, filled)
+ * Date: 03/23/2018
  *
  */
- $isSession=0;
-
-require_once('include/session.php');
-require_once("include/config.php");
-require_once ("include/function.php");
-//check user 
-if(isset($_GET["userid"]) && !empty(trim($_GET["userid"]))){
-    $userId=$_GET["userid"];//lower case
-}else{
-    //page not found
-}
-$sideBarActive=6;
+$isSession=1;
+require_once('admin/include/session.php');
+require_once("admin/include/config.php");
+require_once("admin/include/function.php");
+$browserTitle="Employer Profile";
+$changeNavBar=True;
 $error="";
 $successMsg="";
-$browserTitle ="";
+//check if user is logged in
+if(isset($_SESSION['login_user_front'])){
+     //get login email
+    $userEmail=$_SESSION['login_user_front'];
+    //check if record exist
+    $sql = "SELECT user_account.`id`, `first_name`, `last_name`, `email`, `contact_number`,`user_image`,user_type.user_type_name
+        FROM user_account INNER JOIN user_type ON user_account.user_type_id=user_type.id WHERE email='".$userEmail."' AND is_delete='0' AND is_approved='1' AND is_active='1' ";
+$result = mysqli_query($db,$sql);
+$count = mysqli_num_rows($result);
+if($count == 1) {
+    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+    if($row["user_type_name"]=='E'){
+        $userId   = $row["id"];
+    }
 
+    }
+
+}else{
+        header("location:sign-up");
+        
+ }
 //display content
 $jobTitle   = "";
 //get compnay from user
@@ -131,7 +141,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
                         if($res){
                                 $successMsg ="Record added successfully";
                                 $_SESSION['success_message'] = $successMsg;
-                                header("location:manage-jobs.php?userid=".$jobPostedBy);
+                                header("location:manage-jobs");die;
                            
                            
                         }else{
@@ -154,7 +164,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
                            $successMsg ="Record updated successfully";
                            $_SESSION['success_message'] = $successMsg;
 
-                          header("location:manage-jobs.php?userid=".$jobPostedBy);
+                          header("location:".CURRENT_URL."manage-jobs");die;
                         }else{
                              $error = "Error in update";
                         }
@@ -176,56 +186,48 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
 <html>
 <head>
   <?php include("partials/header.inc.php"); ?>
+     <style>
+        body { padding-top: 70px; }
+    </style>
 </head>
 <body>
+    <div>
+        <!--=====================================NAVIGATION : starts here ======================== -->
+        <?php include('partials/nav.inc.php')?>
 
-    <div id="wrapper">
+        <!--=====================================NAVIGATION : ends here ======================== -->
 
-        <!-- Navigation -->
-        <nav>
-        <?php include("partials/nav.inc.php");?>
-        <?php include("partials/sidebar.inc.php");?>
-        
-        </nav>
+        <main role="main" class="container-fluid">
 
-        <!-- Page Content -->
-        <div id="page-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header"><?php echo $browserTitle;?></h1>
-                    </div>
-                    <!-- /.col-lg-12 -->
+<div class="container home-heading latest-news">
 
-                </div>
-                <!-- /.row -->
-                <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        
+	<div class="row">
+		<div class="col">
+                    <h2 class=" text-center "><?php echo $browserTitle?></h2><hr class=" text-center ">
+                    <?php if (isset($_SESSION['success_message'])): ?>
 
-                        <?php if($error){?>
-                    <div class="alert alert-danger fade in">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <strong>Error! </strong><?php echo $error?>
-                    </div>
-                    <?php } ?>
+                            <div class="col-md-6 offset-md-3 alert success alert-success ">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']);?>
+                            </div>
+                           <?php endif ?>
 
-                        <div class="panel-heading">
-                            <?php echo $browserTitle;?>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-10">
-                                    <form role="form"  data-toggle="validator" id="frm_add_update_job"  name="frm_add_update_job" method="POST" enctype="multipart/form-data">
+                    <?php if (isset($_SESSION['error_message'])): ?>
+                            <div class="col-md-6 offset-md-3 alert alert-danger ">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']);?>
+                            </div>
+                           <?php endif ?>
+
+                   <div class="col-md-6 offset-md-3">
+                   <form role="form"  data-toggle="validator" id="frm_add_update_job"  name="frm_add_update_job" method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
                                             <label  class="control-label">Job Title</label>
                                             <div class="help-block with-errors"></div>
                                             <input type="text" class="form-control" id="jobTitle" name="jobTitle" value="<?php echo $jobTitle;?>" required="true">
                                     </div>
                                     <!-- hidden -->
-                                    
+
                                     <input type="hidden" class="form-control" id="jobPostedBy" name="jobPostedBy" value="<?php echo $jobPostedBy;?>" >
                                     <div class="form-group">
                                             <label  class="control-label">Company</label>
@@ -240,7 +242,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
                                             <div class="help-block with-errors"></div>
                                             <input class="form-control" style="width:160px;" type="date"  id="postedDate" name="postedDate" value="<?php echo $postedDate;?>" required="true">
                                     </div>
-                                    
+
                                     <div class="form-group">
                                             <label  class="control-label">Job Type</label>
                                             <div class="help-block with-errors"></div>
@@ -306,26 +308,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
                                         <button type="submit" name="<?php echo $btnName?>" class="btn btn-default btn-primary"><?php echo $btn?></button>
                                         <button type="reset"  id="back" class="btn btn-default btn-primary">Cancel</button>
                                     </form>
-                                </div> <!-- ./col-lg-6 -->
-                            </div> <!-- ./row -->
-                        </div> <!-- ."panel-body-->
-                    </div> <!-- /.l panel-default-->
-                </div> <!-- .col-lg-12 -->
-            </div> <!-- .row -->
-
-
-            </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
+                   </div><!-- close col-md-6-->
+                   </div><!-- col-->
+        </div><!-- rows-->
+        </div> <!-- container home-heading latest-news-->
+        </main>
+    
+   
     <!-- /#wrapper -->
 <?php include("partials/footer.inc.php");?>
+ </div>
+
     <!-- include summernote css/js -->
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
     
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+    <script src="<?php echo CURRENT_URL?>public/javascript/javascript_functions.js"></script>
     <script>
     $(document).ready(function() {
         //restrict date to future date
@@ -379,6 +377,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
             .end();
 });
   </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
 
 </body>
 </html>

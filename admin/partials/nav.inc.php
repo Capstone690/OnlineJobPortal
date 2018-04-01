@@ -127,8 +127,8 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="user-profile.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
+                        <!--<li><a href="user-profile.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>-->
                         <li><a href="change-password.php"><i class="fa fa-unlock fa-fw"></i> Change Password</a>
                         </li>
                         <li class="divider"></li>

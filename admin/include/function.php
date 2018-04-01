@@ -67,6 +67,7 @@ function get_company($companyId){
     }
 
 }
+
 function get_company_options($companyId){
     global $db;
     $option="<option value=''>Select</option>";
@@ -83,6 +84,73 @@ function get_company_options($companyId){
                     $select="";
                 }
                 $option.="<option $select value='$id'>$company_name</option>";
+        }
+        return $option;
+    }else{
+        return $option;
+    }
+}
+
+function get_company_search($companyId){
+    global $db;
+    $option="<option value=''>Company</option>";
+    $sql = "SELECT id, company_name FROM company WHERE is_removed='0' AND is_active='1' ";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $id=$content["id"];
+                $company_name=$content["company_name"];
+                if($companyId==$id){
+                    $select="selected";
+                }else{
+                    $select="";
+                }
+                $option.="<option $select value='$id'>$company_name</option>";
+        }
+        return $option;
+    }else{
+        return $option;
+    }
+}
+
+function get_job_type_search($jobTypeId){
+    global $db;
+    $option="<option value=''>Job Type</option>";
+    $sql = "SELECT id, job_type FROM job_type";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $id=$content["id"];
+                $job_type=$content["job_type"];
+                if($jobTypeId==$id){
+                    $select="selected";
+                }else{
+                    $select="";
+                }
+                $option.="<option $select value='$id'>$job_type</option>";
+        }
+        return $option;
+    }else{
+        return $option;
+    }
+}
+function get_city_search($locCitySel){
+    global $db;
+    $option="<option value=''>City</option>";
+    $sql = "SELECT DISTINCT loc_city FROM job_post order By loc_city";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $loc_city=$content["loc_city"];
+                if($loc_city==$locCitySel){
+                    $select="selected";
+                }else{
+                    $select="";
+                }
+                $option.="<option $select value='$loc_city'>$loc_city</option>";
         }
         return $option;
     }else{
@@ -187,5 +255,22 @@ function isUserLoggedIn(){
         }
 
    }
+}
+function timeago($date) {
+	   $timestamp = strtotime($date);
+
+	   $strTime = array("second", "minute", "hour", "day", "month", "year");
+	   $length = array("60","60","24","30","12","10");
+
+	   $currentTime = time();
+	   if($currentTime >= $timestamp) {
+			$diff     = time()- $timestamp;
+			for($i = 0; $diff >= $length[$i] && $i < count($length)-1; $i++) {
+			$diff = $diff / $length[$i];
+			}
+
+			$diff = round($diff);
+			return $diff . " " . $strTime[$i] . "(s) ago ";
+	   }
 }
 ?>

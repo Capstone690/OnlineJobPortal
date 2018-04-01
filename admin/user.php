@@ -6,6 +6,7 @@
  * Modifed By: Dipali
  * Modified Date: 02/21/2018
  */
+ $isSession=0;
 
 require_once('include/session.php');
 require_once("include/config.php");

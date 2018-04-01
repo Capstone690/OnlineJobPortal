@@ -2,6 +2,7 @@
 
    require_once('config.php');
    $login_session="";
+   
    session_start();
 
    $user_check = isset($_SESSION['login_user'])?$_SESSION['login_user']:'';

@@ -5,6 +5,8 @@
  * Date: 02/17/2018
  *
  */
+ $isSession=0;
+
 require_once('include/session.php');
 //include("include/config.php");
 require_once("include/function.php");

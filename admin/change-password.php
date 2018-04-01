@@ -1,4 +1,7 @@
 <?php
+ $isSession=0;
+$sideBarActive=0;
+
 require_once('include/session.php');
 require_once("include/config.php");
 $browserTitle = "Chanage Password";
