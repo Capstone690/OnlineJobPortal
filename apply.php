@@ -68,7 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["apply"])) {
 $userAccountId  = $userIdDb;
 $job_post_id    = $jobId;
 $apply_date     = date('Y-m-d h:i:sa');
-$status         = "P";
+$status         = "1";
 $email          = isset($_POST["email"])          ? test_input($_POST["email"]) : "";
 $contactNo      = isset($_POST["contactNo"])      ? test_input($_POST["contactNo"]) : "";
 //check if user has already applied for that job

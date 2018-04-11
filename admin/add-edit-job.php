@@ -6,7 +6,9 @@
  * Modified By: Dipali
  * Modified Date: 03/02/2018
  * Modification:Added job status (draft,open, on hold,closed, filled)
- *
+ * Modified By :Dipali
+ * Modified On:04/10/2018
+ * Modification: Removed restraction on job posted date
  */
  $isSession=0;
 
@@ -329,7 +331,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
     <script>
     $(document).ready(function() {
         //restrict date to future date
-        var dtToday = new Date();
+        /*var dtToday = new Date();
         var month = dtToday.getMonth() + 1;
         var day = dtToday.getDate();
         var year = dtToday.getFullYear();
@@ -340,7 +342,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
             day = '0' + day.toString();
 
         var minDate = year + '-' + month + '-' + day;
-            $('#postedDate').attr('min', minDate);
+            $('#postedDate').attr('min', minDate);*/
      
     //validation
      addRequiredMark('frm_add_update_job');

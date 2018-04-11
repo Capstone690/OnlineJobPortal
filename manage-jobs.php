@@ -75,6 +75,7 @@ if($count == 1) {
         <th>Posted Date</th>
         <th>Location</th>
         <th>Job Status</th>
+        <th>Applications</th>
         <th>Status</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -90,6 +91,8 @@ if($count == 1) {
        if($count > 0) {
         while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
          $recordId    = $content["id"];
+         $noOfJobApplications = get_number_of_application($recordId);
+                                                
          $postedById  = $content["posted_by_id"];
          $jobTypeId  = $content["job_type_id"];
          $jobStatusId = $content["job_status"];
@@ -115,6 +118,8 @@ if($count == 1) {
          <td><?php echo $postedDate;?></td>
          <td><?php echo $jobLocation;?></td>
          <td><?php echo $jobStatus;?></td>
+         <td><a href="view-application/<?php echo $recordId;?>"><?php echo $noOfJobApplications;?></a></td>
+                                        
          <td class="text-center">
          <button type="button" name="status" id="status_<?php echo $recordId?>" class=" status no-border" data-id="<?php echo $recordId ?>">
          <?php if($isActive==='1'){
@@ -164,7 +169,7 @@ $(document).ready(function() {
     {
          responsive: true,
          stateSave: true,
-         "aoColumns": [null,null,null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
+         "aoColumns": [null,null,null,null,{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }]
            
     }
     );

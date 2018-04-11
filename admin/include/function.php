@@ -273,4 +273,47 @@ function timeago($date) {
 			return $diff . " " . $strTime[$i] . "(s) ago ";
 	   }
 }
+function get_number_of_application($jobId){
+    global $db;
+    $sql = "SELECT job_post_activity.id FROM job_post_activity INNER JOIN user_account ON job_post_activity.user_account_id=user_account.id WHERE user_account.is_delete='0' AND job_post_activity.job_post_id='".$jobId."'";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    return $count;
+
+}
+function get_application_status($applStatusId){
+    global $db;
+    $sql = "SELECT appl_status FROM application_status WHERE appl_status_id=".$applStatusId." ";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        $content = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        return $content["appl_status"];
+    }else{
+        return "-";
+    }
+
+}
+function get_appl_status_options($applStatusId){
+    global $db;
+    $option="<option value=''>Select</option>";
+    $sql = "SELECT appl_status_id, appl_status FROM application_status";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        while($content = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $id=$content["appl_status_id"];
+                $appl_status=$content["appl_status"];
+                if($applStatusId==$id){
+                    $select="selected";
+                }else{
+                    $select="";
+                }
+                $option.="<option $select value='$id'>$appl_status</option>";
+        }
+        return $option;
+    }else{
+        return $option;
+    }
+}
 ?>
