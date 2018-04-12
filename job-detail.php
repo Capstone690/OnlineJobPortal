@@ -102,7 +102,19 @@ $sqlJob    = "SELECT  job_post.*,company.company_name,company.business_stream_id
             <?php echo $jobTitle;?><br>
             <span style="font-size:15px;" class="text-muted"><a href="<?php echo $companyUrl?>"  target="_blank"><?php echo $companyName?></a>&nbsp;<?php echo $jobLocation?><br>Posted: <?php echo $daysPassed?></span>
             <br><br>
-            <a class="btn btn-primary  btn-sm  active" href="<?php echo $jobApplicationUrl;?>" role="button">Apply</a>
+            <?php
+            $appliedDate= has_applied($userIdDb,$jobId);
+            if($appliedDate){
+                ?>
+         <a class="btn btn-secondary  btn-sm  active" href="#" role="button">Applied <?php echo $appliedDate;?></a>
+        
+            <?php
+            }else{
+                ?>
+                <a class="btn btn-primary  btn-sm  active" href="<?php echo $jobApplicationUrl;?>" role="button">Apply</a>
+        
+            <?php
+            }?>
         </h4>
         <div class="card-body">
             <h5 class="card-title">Job Description</h5>
@@ -115,7 +127,7 @@ $sqlJob    = "SELECT  job_post.*,company.company_name,company.business_stream_id
                 <strong>Job Status</strong>
                 <p><?php echo $jobStatus?></p>
                 <strong>Employment Type</strong>
-                <p><?php echo $jobStatus?></p>
+                <p><?php echo $jobType?></p>
                 <strong>Job Function</strong>
                 <p><?php echo $jobFunction?></p>
                 <strong>Industry</strong>

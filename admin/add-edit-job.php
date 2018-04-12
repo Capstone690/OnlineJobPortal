@@ -9,6 +9,9 @@
  * Modified By :Dipali
  * Modified On:04/10/2018
  * Modification: Removed restraction on job posted date
+ * Modified By: dipali
+ * Modifed On 04/12/2018
+ * Modification:
  */
  $isSession=0;
 

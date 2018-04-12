@@ -316,4 +316,18 @@ function get_appl_status_options($applStatusId){
         return $option;
     }
 }
+//function to check if user has applied to this job
+function has_applied($userId,$jobId){
+    $appliedDate="";
+    global $db;
+    $sql = "SELECT job_post_activity.id,job_post_activity.apply_date FROM job_post_activity WHERE job_post_activity.job_post_id='".$jobId."' AND job_post_activity.user_account_id='".$userId."'";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    
+    if($count>0){
+        $content = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        $appliedDate=timeago($content["apply_date"]);
+    }
+    return $appliedDate;
+}
 ?>

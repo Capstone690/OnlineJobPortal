@@ -52,7 +52,13 @@ $classNav="navbar fixed-top navbar-expand-lg navbar-dark ";
                <li class="nav-item ">
                     <a class="nav-link" href="<?php echo CURRENT_URL.$jobLink?>">Jobs</a>
                 </li>
-
+                <?php     if($userLoggedIn["user_type_name"]=="J"){
+                ?>
+                <li class="nav-item ">
+                    <a class="nav-link" href="<?php echo CURRENT_URL."/applied-jobs"?>">Applied Jobs</a>
+                </li>
+                <?php }?>
+                
                  <li class="nav-item dropdown ">
                     <a class="navbar-brand nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php if($userLoggedIn["user_image"]!=""){

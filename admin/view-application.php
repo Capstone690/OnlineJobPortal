@@ -22,6 +22,7 @@ if(isset($_GET["jobId"]) && !empty(trim($_GET["jobId"]))){
     //page not found
 
 }
+
 $browserTitle = "View Applications";
 $sideBarActive=6;
 $error="";
