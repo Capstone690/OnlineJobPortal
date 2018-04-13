@@ -11,7 +11,7 @@ require_once("admin/include/function.php");
 $browserTitle="News";
 $currentpage=1;
 // find out how many rows are in the table
-$sqlLatestNewsTotal    = "SELECT article_id FROM article WHERE is_active='1' AND published_date <= CURDATE() ORDER BY published_date ";
+$sqlLatestNewsTotal    = "SELECT article_id FROM article WHERE is_active='1' AND published_date <= CURDATE() ORDER BY published_date DESC ";
 $resultLatestNewsTotal = mysqli_query($db,$sqlLatestNewsTotal);
 $numrows = mysqli_num_rows($resultLatestNewsTotal);
 // number of rows to show per page
@@ -62,7 +62,7 @@ $offset = ($currentpage - 1) * $rowsperpage;
   </div>
 <!-- ===========LATEST BLOG =============== -->
 <?php
-    $sqlLatestNews    = "SELECT article_id, title,brief_desc,media FROM article WHERE is_active='1' AND published_date <= CURDATE() ORDER BY published_date LIMIT $offset, $rowsperpage";
+    $sqlLatestNews    = "SELECT article_id, title,brief_desc,media FROM article WHERE is_active='1' AND published_date <= CURDATE() ORDER BY published_date DESC LIMIT $offset, $rowsperpage";
     $resultLatestNews = mysqli_query($db,$sqlLatestNews);
     $countLatestNews = mysqli_num_rows($resultLatestNews);
     if($countLatestNews>0){

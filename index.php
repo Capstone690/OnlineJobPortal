@@ -223,7 +223,7 @@ if($countLatestJob > 0) {
 <?php } //close if($count)?>
 <!-- ===========LATEST BLOG =============== -->
 <?php
-    $sqlLatestNews    = "SELECT article_id, title,brief_desc,media FROM article WHERE is_active='1' AND published_date <= CURDATE() ORDER BY published_date limit 2  ";
+    $sqlLatestNews    = "SELECT article_id, title,brief_desc,media FROM article WHERE is_active='1' AND published_date <= CURDATE() ORDER BY published_date DESC limit 2  ";
     $resultLatestNews = mysqli_query($db,$sqlLatestNews);
     $countLatestNews = mysqli_num_rows($resultLatestNews);
     if($countLatestNews>0){
@@ -244,16 +244,19 @@ if($countLatestJob > 0) {
                             $articleBriefDesc = $contentLatestNews["brief_desc"];
                             $articleImg= TARGET_DIR."/".$contentLatestNews["media"];
 
+                            $query_string = CURRENT_URL.'news/' . urlencode(strtolower($articleTitle));
                         ?>
 
 		<div class="col-6">
 			<div class="card" >
+                            <?php if($contentLatestNews["media"]!=""){?>
   <img class="card-img-top" src="<?php echo $articleImg;?>" alt="<?php echo $articleTitle?>">
+  <?php }?>
   <div class="card-body">
     <h5 class="card-title"><?php echo $articleTitle?></h5>
     <p class="card-text"><?php echo $articleBriefDesc?></p>
    <div class="text-center">
-	   <a href="#" class="btn btn-primary">view</a>
+       <a href="<?php echo $query_string;?>" class="btn btn-primary">view</a>
  	
 </div>
   </div>
