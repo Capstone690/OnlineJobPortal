@@ -117,8 +117,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["update_application_sta
                                                 $webSiteUrl =$content["website_url"];
                                                 $streetAddress1 =$content["street_address1"];
                                                 $streetAddress2 =$content["street_address2"];
-                                                $city=$content["city"];
-                                                $state=$content["state"];
+                                                $city=get_city($content["city"]);
+                                                $state=get_state($content["state"]);
                                                 $country	=$content["country"];
                                                 $zip=$content["zip"];
                                                 $jobSeekerId= $content["user_account_id"];

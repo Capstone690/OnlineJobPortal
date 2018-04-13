@@ -3,7 +3,9 @@
  * File Name: add-edit-user.php
  * By: Dipali
  * Date: 02/21/2018
- * 
+ * Modified By: dipali
+ * Modifed On 04/12/2018
+ * Modificatition:Updated country as USA(non editable), city and state drop down
  */
  $isSession=0;
 
@@ -530,20 +532,78 @@ hr.style-seven:after {
                                             <div class="help-block with-errors"></div>
                                             <input type="text" class="form-control" id="streetAddress2" name="streetAddress2" value="<?php echo $streetAddress2;?>" >
                                     </div>
+                                    <?php
+                                    //Get all states from USA
+                                    $query = $db->query("SELECT * FROM states WHERE status = 1 AND country_id = 224 ORDER BY state_name ASC");
+
+                                    //Count total number of rows
+                                    $rowCount = $query->num_rows;
+                                    ?>
                                     <div class="form-group">
-                                            <label  class="control-label">City</label>
-                                            <div class="help-block with-errors"></div>
-                                            <input type="text" class="form-control" id="city" name="city" value="<?php echo $city;?>" required="true">
+                                        <label  class="control-label">State</label>
+                                        <div class="help-block with-errors"></div>
+                                        <select class="form-control" name="state" id="state" required="required">
+                                            <option value="">Select State</option>
+<?php
+                                    if ($rowCount > 0) {
+                                        while ($row = $query->fetch_assoc()) {
+                                            if ($row["state_id"] == $state) {
+                                                $sel = "selected";
+                                            } else {
+                                                $sel = "";
+                                            }
+                                            echo '<option ' . $sel . ' value="' . $row['state_id'] . '">' . $row['state_name'] . '</option>';
+                                        }
+                                    } else {
+                                        echo '<option value="">State not available</option>';
+                                    }
+?>
+                                        </select>
+
+                                        <!--<input type="text" class="form-control" id="state" name="state" value="<?php echo $state; ?>" required="true">-->
                                     </div>
                                     <div class="form-group">
-                                            <label  class="control-label">State</label>
-                                            <div class="help-block with-errors"></div>
-                                            <input type="text" class="form-control" id="state" name="state" value="<?php echo $state;?>" required="true">
-                                    </div>
+                                        <label  class="control-label">City</label>
+                                        <div class="help-block with-errors"></div>
+
+<?php
+                                            if ($city != "") {
+                                                $queryCity = $db->query("SELECT * FROM cities WHERE state_id = " . $state . " AND status = 1 ORDER BY city_name ASC");
+
+                                                //Count total number of rows
+                                                $rowCountCity = $queryCity->num_rows;
+
+                                                //Display cities list
+                                                echo " <select class='form-control' name='city' id='city'  required='required'>";
+                                                if ($rowCountCity > 0) {
+                                                    echo '<option value="">Select city</option>';
+
+                                                    while ($rowCity = $queryCity->fetch_assoc()) {
+                                                        if ($city == $rowCity["city_id"]) {
+                                                            $citysel = "selected";
+                                                        } else {
+                                                            $citysel = "";
+                                                        }
+
+                                                        echo '<option ' . $citysel . ' value="' . $rowCity['city_id'] . '">' . $rowCity['city_name'] . '</option>';
+                                                    }
+                                                } else {
+                                                    echo '<option value="">City not available</option>';
+                                                }
+                                                echo "</select>";
+                                            } else {
+ ?>
+                                                <select class="form-control" name="city" id="city"  required="required">
+                                                    <option value="">Select state first</option>
+                                                </select>
+<?php } ?>
+                                            <!--<input type="text" class="form-control" id="city" name="city" value="<?php echo $city; ?>" required="true">-->
+                                        </div>
+
                                     <div class="form-group">
                                             <label  class="control-label">Country</label>
                                             <div class="help-block with-errors"></div>
-                                            <input type="text" class="form-control" id="country" name="country" value="<?php echo $country;?>" required="true">
+                                            <input type="text" class="form-control" id="country" name="country" value="<?php echo $country?$country:"United States";?>" readonly="readonly">
                                     </div>
                                     <div class="form-group">
                                             <label  class="control-label">Zip Code</label>
@@ -984,7 +1044,25 @@ hr.style-seven:after {
       $("#frm_add_update_user").validator('update');
 
         });
-        
+
+
+
+    $('#state').on('change',function(){
+        var stateID = $(this).val();
+        if(stateID){
+            $.ajax({
+                type:'POST',
+                url:'include/action.php',
+                data:'state_id='+stateID,
+                success:function(html){
+                    $('#city').html(html);
+                }
+            });
+        }else{
+            $('#city').html('<option value="">Select state first</option>');
+        }
+    });
+    
        addRequiredMark('frm_add_update_user');
        // $('#frm_add_update_user').validator()
 });

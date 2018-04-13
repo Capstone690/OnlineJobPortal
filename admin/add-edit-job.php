@@ -11,7 +11,7 @@
  * Modification: Removed restraction on job posted date
  * Modified By: dipali
  * Modifed On 04/12/2018
- * Modification:
+ * Modificatition:Updated country as USA(non editable), city and state drop down
  */
  $isSession=0;
 
@@ -51,8 +51,8 @@ $jobFunction="";
 $jobSkills="";
 $locStreetAddress1 ="";
 $locStreetAddress2 ="";
-$locCity="";
-$locState="";
+$city="";
+$state="";
 $locCountry	="";
 $locZip="";
 $jobDescription="";
@@ -88,8 +88,8 @@ if($count == 1) {
         $jobSkills=$row["job_skills"];
         $locStreetAddress1 =$row["loc_street_address1"];
         $locStreetAddress2 =$row["loc_street_address2"];
-        $locCity=$row["loc_city"];
-        $locState=$row["loc_state"];
+        $city=$row["loc_city"];
+        $state=$row["loc_state"];
         $locCountry	=$row["loc_country"];
         $locZip=$row["loc_zip"];
         $jobDescription=$row["job_description"];
@@ -116,8 +116,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
         $jobSkills=test_input($_POST["jobSkills"]);
         $locStreetAddress1 =test_input($_POST["locStreetAddress1"]);
         $locStreetAddress2 =test_input($_POST["locStreetAddress2"]);
-        $locCity=test_input($_POST["locCity"]);
-        $locState=test_input($_POST["locState"]);
+        $city=test_input($_POST["city"]);
+        $state=test_input($_POST["state"]);
         $locCountry	=test_input($_POST["locCountry"]);
         $locZip=test_input($_POST["locZip"]);
         $jobDescription=mysqli_real_escape_string($db,$_POST["jobDescription"]);
@@ -129,7 +129,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
            //check if add/edit page
            if(isset($_POST["add"])){
                          $quer = "INSERT INTO job_post (`job_title`, `posted_by_id`, `job_type_id`, job_status, `company_id`, `posted_date`, `job_description`, `job_function`, `job_skills`, `loc_street_address1`, `loc_street_address2`, `loc_city`, `loc_state`, `loc_country`, `loc_zip`,is_active,is_delete) VALUES
-                                ('$jobTitle', '$jobPostedBy','$jobTypeId','$jobStatusId', '$companyId', '$postedDate', '$jobDescription','$jobFunction','$jobSkills','$locStreetAddress1','$locStreetAddress2','$locCity','$locState','$locCountry','$locZip','1','0')";
+                                ('$jobTitle', '$jobPostedBy','$jobTypeId','$jobStatusId', '$companyId', '$postedDate', '$jobDescription','$jobFunction','$jobSkills','$locStreetAddress1','$locStreetAddress2','$city','$state','$locCountry','$locZip','1','0')";
                         $res = mysqli_query($db,$quer);
                         //get recent generated id
                         $recordId=mysqli_insert_id($db);
@@ -151,7 +151,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
                    if($count == 1) {
 
                         $quer = "UPDATE job_post set job_title='" .$jobTitle. "', job_type_id='" .$jobTypeId. "', job_status='" .$jobStatusId. "', posted_date='" .$postedDate. "', job_description='" .$jobDescription. "', job_function='" .$jobFunction. "', job_skills='" .$jobSkills. "', loc_street_address1='" .$locStreetAddress1. "',
-                                loc_street_address2='" .$locStreetAddress2. "', loc_city='" .$locCity. "', loc_state='" .$locState. "', loc_country='" .$locCountry. "', loc_zip='" .$locZip. "'";
+                                loc_street_address2='" .$locStreetAddress2. "', loc_city='" .$city. "', loc_state='" .$state. "', loc_country='" .$locCountry. "', loc_zip='" .$locZip. "'";
                         
                         $quer .= " WHERE id='".$id."' ";
                         $res = mysqli_query($db,$quer);
@@ -282,20 +282,90 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
                                             <div class="help-block with-errors"></div>
                                             <input type="text" class="form-control" id="locStreetAddress2" name="locStreetAddress2" value="<?php echo $locStreetAddress2;?>" >
                                     </div>
-                                    <div class="form-group">
-                                            <label  class="control-label">City</label>
-                                            <div class="help-block with-errors"></div>
-                                            <input type="text" class="form-control" id="locCity" name="locCity" value="<?php echo $locCity;?>" required="true">
-                                    </div>
+                                    <!--
                                     <div class="form-group">
                                             <label  class="control-label">State</label>
                                             <div class="help-block with-errors"></div>
                                             <input type="text" class="form-control" id="locState" name="locState" value="<?php echo $locState;?>" required="true">
                                     </div>
                                     <div class="form-group">
+                                            <label  class="control-label">City</label>
+                                            <div class="help-block with-errors"></div>
+                                            <input type="text" class="form-control" id="locCity" name="locCity" value="<?php echo $locCity;?>" required="true">
+                                    </div>
+                                    -->
+                                     <?php
+                                    //Get all states from USA
+                                    $query = $db->query("SELECT * FROM states WHERE status = 1 AND country_id = 224 ORDER BY state_name ASC");
+
+                                    //Count total number of rows
+                                    $rowCount = $query->num_rows;
+                                    ?>
+                                    <div class="form-group">
+                                        <label  class="control-label">State</label>
+                                        <div class="help-block with-errors"></div>
+                                        <select class="form-control" name="state" id="state" required="required">
+                                            <option value="">Select State</option>
+<?php
+                                    if ($rowCount > 0) {
+                                        while ($row = $query->fetch_assoc()) {
+                                            if ($row["state_id"] == $state) {
+                                                $sel = "selected";
+                                            } else {
+                                                $sel = "";
+                                            }
+                                            echo '<option ' . $sel . ' value="' . $row['state_id'] . '">' . $row['state_name'] . '</option>';
+                                        }
+                                    } else {
+                                        echo '<option value="">State not available</option>';
+                                    }
+?>
+                                        </select>
+
+                                        <!--<input type="text" class="form-control" id="state" name="state" value="<?php echo $state; ?>" required="true">-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="control-label">City</label>
+                                        <div class="help-block with-errors"></div>
+
+<?php
+                                            if ($city != "") {
+                                                $queryCity = $db->query("SELECT * FROM cities WHERE state_id = " . $state . " AND status = 1 ORDER BY city_name ASC");
+
+                                                //Count total number of rows
+                                                $rowCountCity = $queryCity->num_rows;
+
+                                                //Display cities list
+                                                echo " <select class='form-control' name='city' id='city'  required='required'>";
+                                                if ($rowCountCity > 0) {
+                                                    echo '<option value="">Select city</option>';
+
+                                                    while ($rowCity = $queryCity->fetch_assoc()) {
+                                                        if ($city == $rowCity["city_id"]) {
+                                                            $citysel = "selected";
+                                                        } else {
+                                                            $citysel = "";
+                                                        }
+
+                                                        echo '<option ' . $citysel . ' value="' . $rowCity['city_id'] . '">' . $rowCity['city_name'] . '</option>';
+                                                    }
+                                                } else {
+                                                    echo '<option value="">City not available</option>';
+                                                }
+                                                echo "</select>";
+                                            } else {
+ ?>
+                                                <select class="form-control" name="city" id="city"  required="required">
+                                                    <option value="">Select state first</option>
+                                                </select>
+<?php } ?>
+                                            <!--<input type="text" class="form-control" id="city" name="city" value="<?php echo $city; ?>" required="true">-->
+                                        </div>
+                                    
+                                    <div class="form-group">
                                             <label  class="control-label">Country</label>
                                             <div class="help-block with-errors"></div>
-                                            <input type="text" class="form-control" id="locCountry" name="locCountry" value="<?php echo $locCountry;?>" required="true">
+                                            <input type="text" class="form-control" id="locCountry" name="locCountry" value="<?php echo $locCountry?$locCountry:"United States";?>" readonly="readonly">
                                     </div>
                                     <div class="form-group">
                                             <label  class="control-label">Zip Code</label>
@@ -346,7 +416,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
 
         var minDate = year + '-' + month + '-' + day;
             $('#postedDate').attr('min', minDate);*/
-     
+    $('#state').on('change',function(){
+        var stateID = $(this).val();
+        if(stateID){
+            $.ajax({
+                type:'POST',
+                url:'include/action.php',
+                data:'state_id='+stateID,
+                success:function(html){
+                    $('#city').html(html);
+                }
+            });
+        }else{
+            $('#city').html('<option value="">Select state first</option>');
+        }
+    });
+    
     //validation
      addRequiredMark('frm_add_update_job');
        $('#frm_add_update_job')

@@ -238,7 +238,7 @@ $offset = ($currentpage - 1) * $rowsperpage;
                            // $articleImg= CURRENT_URL.TARGET_DIR."/".$contentLatestNews["media"];
                             $jobUrl = CURRENT_URL.'job-detail/' . $jobId;
                             $companyUrl = CURRENT_URL.'company/' . urlencode(strtolower($companyName));
-                            $jobLocation = $contentLatestJobs["loc_city"].", ".$contentLatestJobs["loc_state"];
+                            $jobLocation = get_city($contentLatestJobs["loc_city"]).", ".get_state($contentLatestJobs["loc_state"]);
                             $daysPassed=timeago($contentLatestJobs["posted_date"]);
                             $jobApplicationUrl=CURRENT_URL.'apply/'.$jobId;
                         ?>

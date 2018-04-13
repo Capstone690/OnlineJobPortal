@@ -109,7 +109,7 @@ if(isset($_GET["jobid"]) && !empty(trim($_GET["jobid"]))){
 
                                                 $applyDate  = $content["apply_date"];
                                                 $jobStatus  = get_application_status($content["status"]);
-                                                $location   = $content["city"].", ".$content["state"];
+                                                $location   = get_city($content["city"]).", ".get_state($content["state"]);
 
                                                 $class     = ($rowNo%2==0) ? "even" : "odd";
 

@@ -114,8 +114,8 @@ if($count > 0) {
                                                 $postedDate= $content["posted_date"];
                                                 $locStreetAddress1= $content["loc_street_address1"];
                                                 $locStreetAddress2= $content["loc_street_address2"];
-                                                $locCity= $content["loc_city"];
-                                                $locState= $content["loc_state"];
+                                                $locCity= get_city($content["loc_city"]);
+                                                $locState= get_state($content["loc_state"]);
                                                 $locCountry= $content["loc_country"];
                                                 $locZip= $content["loc_zip"];
                                                 $jobLocation = "<div class='location'>".$locCity.", ".$locState."</div>";

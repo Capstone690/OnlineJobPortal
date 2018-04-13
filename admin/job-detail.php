@@ -85,8 +85,8 @@ if($count > 0) {
         $jobSkills=$row["job_skills"];
         $locStreetAddress1 =$row["loc_street_address1"];
         $locStreetAddress2 =$row["loc_street_address2"];
-        $locCity=$row["loc_city"];
-        $locState=$row["loc_state"];
+        $locCity=get_city($row["loc_city"]);
+        $locState=get_state($row["loc_state"]);
         $locCountry	=$row["loc_country"];
         $locZip=$row["loc_zip"];
         $jobLocation = $locCity.", ".$locState;

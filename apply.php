@@ -34,8 +34,8 @@ if($count == 1) {
             if($countJobSeeker == 1) {
                 $rowJobSeeker = mysqli_fetch_array($resultJobSeeker,MYSQLI_ASSOC);
                  $headLine =$rowJobSeeker["headline"];
-                 $city=$rowJobSeeker["city"];
-                 $state=$rowJobSeeker["state"];
+                 $city=get_city($rowJobSeeker["city"]);
+                 $state=get_state($rowJobSeeker["state"]);
                  $location = $city.", ".$state;
             }
     }

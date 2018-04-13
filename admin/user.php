@@ -144,7 +144,7 @@ if($count > 0) {
                                                         $countJobSeeker = mysqli_num_rows($resultJobSeeker);
                                                         if($countJobSeeker == 1) {
                                                             $rowJobSeeker = mysqli_fetch_array($resultJobSeeker,MYSQLI_ASSOC);
-                                                            $location   = $rowJobSeeker["city"].", ".$rowJobSeeker["state"];
+                                                            $location   = get_city($rowJobSeeker["city"]).", ".get_state($rowJobSeeker["state"]);
                                                             }else{
                                                                 $location="-";
                                                             }

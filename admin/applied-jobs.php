@@ -113,8 +113,8 @@ inner join company c on temp.company_id = c.id";
                                                 $companyName= $content["company_name"];
                                                 $status = get_application_status($content["status"]);
                                                 
-                                                $locCity = $content["loc_city"];
-                                                $locState=$content["loc_state"];
+                                                $locCity = get_city($content["loc_city"]);
+                                                $locState=get_state($content["loc_state"]);
                                                 $jobLocation = "<div class='location'>".$locCity.", ".$locState."</div>";
 
                                                 $isExpired="";

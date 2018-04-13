@@ -150,7 +150,7 @@ function get_city_search($locCitySel){
                 }else{
                     $select="";
                 }
-                $option.="<option $select value='$loc_city'>$loc_city</option>";
+                $option.="<option $select value='$loc_city'>".get_city($loc_city)."</option>";
         }
         return $option;
     }else{
@@ -329,5 +329,31 @@ function has_applied($userId,$jobId){
         $appliedDate=timeago($content["apply_date"]);
     }
     return $appliedDate;
+}
+function get_state($stateId){
+    global $db;
+    $sql = "SELECT state_name FROM states WHERE state_id='".$stateId."' ";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        $content = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        return $content["state_name"];
+    }else{
+        return "-";
+    }
+
+}
+function get_city($cityId){
+    global $db;
+    $sql = "SELECT city_name FROM cities WHERE city_id='".$cityId."' ";
+    $result = mysqli_query($db,$sql);
+    $count = mysqli_num_rows($result);
+    if($count>0){
+        $content = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        return $content["city_name"];
+    }else{
+        return "-";
+    }
+
 }
 ?>

@@ -112,12 +112,12 @@ inner join company c on temp.company_id = c.id";
                                                 $companyUrl = CURRENT_URL.'company/' . urlencode(strtolower($companyName));
 
 
-                                                $status = $content["status"];
+                                                $status = get_application_status($content["status"]);
                                                 if($status=="P"){
                                                     $status="Pending";
                                                 }
-                                                $locCity = $content["loc_city"];
-                                                $locState=$content["loc_state"];
+                                                $locCity = get_city($content["loc_city"]);
+                                                $locState=get_state($content["loc_state"]);
                                                 $jobLocation = "<div class='location'>".$locCity.", ".$locState."</div>";
                                                 $email=$content["email"];
                                                 $phone= $content["phone"];
