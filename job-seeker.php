@@ -3,6 +3,9 @@
  * File Name: job-seeker.php
  * By: Dipali
  * Date: 03/20/2018
+ * Modifed By :Dipali
+ * Modifed On:04/10/2018
+ * Modification:Commented DOB
  */
 $isSession=1;
 require_once('admin/include/session.php');
@@ -335,11 +338,11 @@ $eduCounter = isset($_POST["educounter"]) ? $_POST["educounter"] : "";
                            <input style="display: inline" class=" upload-img form-control" type="file" name="fileToUpload" >
 
                        </div>
-                        <div class="form-group">
+                        <!----<div class="form-group">
                                             <label  class="control-label">Date Of Birth</label>
                                             <div class="help-block with-errors"></div>
                                             <input class="form-control" style="width:160px;" type="date"  id="dateOfBirth" name="dateOfBirth" value="<?php echo $dateOfBirth;?>" required="true">
-                                    </div>
+                                    </div>-->
                                         <!-- jobseeker-->
                                     <div  class="form-group">
                                             <label  class="control-label">Gender</label>

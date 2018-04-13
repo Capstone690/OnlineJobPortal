@@ -5,7 +5,7 @@
  * Date: 02/21/2018
  * Modified By: dipali
  * Modifed On 04/12/2018
- * Modificatition:Updated country as USA(non editable), city and state drop down
+ * Modificatition:Updated country as USA(non editable), city and state drop down, commented date of birth
  */
  $isSession=0;
 
@@ -502,11 +502,11 @@ hr.style-seven:after {
                                     </div>
                                         <?php if($userType==='J'){?>
                                         <!-- jobseeker-->
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                             <label  class="control-label">Date Of Birth</label>
                                             <div class="help-block with-errors"></div>
                                             <input class="form-control" style="width:160px;" type="date"  id="dateOfBirth" name="dateOfBirth" value="<?php echo $dateOfBirth;?>" required="true">
-                                    </div>
+                                    </div>-->
                                         <!-- jobseeker-->
                                     <div  class="form-group">
                                             <label  class="control-label">Gender</label>
