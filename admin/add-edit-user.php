@@ -6,6 +6,7 @@
  * Modified By: dipali
  * Modifed On 04/12/2018
  * Modificatition:Updated country as USA(non editable), city and state drop down, commented date of birth
+ * Added new fields Highest degree achived, Major, Total Years of experience
  */
  $isSession=0;
 
@@ -45,6 +46,9 @@ $gender      = "";
 $headLine="";
 $skills="";
 $webSiteUrl="";
+$highestDegree="";
+$major="";
+$yearOfExp="";
 $streetAddress1 ="";
 $streetAddress2 ="";
 $city="";
@@ -116,7 +120,7 @@ if($count == 1) {
       }
       //get job seeker profile
       if($userType==='J'){
-          $sqlJobSeeker = "SELECT `user_account_id`, `headline`,`skills`,`website_url`, `street_address1`, `street_address2`, `city`, `state`, `country`, `zip`
+          $sqlJobSeeker = "SELECT `user_account_id`, `headline`,`skills`,`website_url`,`highest_degree`,`highest_major`,`year_of_exp`, `street_address1`, `street_address2`, `city`, `state`, `country`, `zip`
         FROM job_seeker_profile WHERE user_account_id='".$id."' ";
             $resultJobSeeker = mysqli_query($db,$sqlJobSeeker);
             $countJobSeeker = mysqli_num_rows($resultJobSeeker);
@@ -125,6 +129,9 @@ if($count == 1) {
                  $headLine =$rowJobSeeker["headline"];
                  $skills =$rowJobSeeker["skills"];
                  $webSiteUrl =$rowJobSeeker["website_url"];
+                 $highestDegree=$rowJobSeeker["highest_degree"];
+                 $major = $rowJobSeeker["highest_major"];
+                 $yearOfExp = $rowJobSeeker["year_of_exp"];
                  $streetAddress1 =$rowJobSeeker["street_address1"];
                  $streetAddress2 =$rowJobSeeker["street_address2"];
                  $city=$rowJobSeeker["city"];
@@ -164,6 +171,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
       $headLine       = isset($_POST["headLine"])       ? test_input($_POST["headLine"]) : "";
       $skills         = isset($_POST["skills"])         ? test_input($_POST["skills"]) : "";
       $webSiteUrl     = isset($_POST["webSiteUrl"])     ? test_input($_POST["webSiteUrl"]) : "";
+      $highestDegree  = isset($_POST["highest_degree"]) ? mysqli_real_escape_string ($db,$_POST["highest_degree"]):"";
+      $major          = isset($_POST["major"]) ? test_input($_POST["major"]):"";
+      $yearOfExp      = isset($_POST["year_of_exp"]) ? test_input($_POST["year_of_exp"]):"";
       $streetAddress1 = isset($_POST["streetAddress1"]) ? test_input($_POST["streetAddress1"]) : "";
       $streetAddress2 = isset($_POST["streetAddress2"]) ? test_input($_POST["streetAddress2"]) : "";
       $city           = isset($_POST["city"])           ? test_input($_POST["city"]) : "";
@@ -226,7 +236,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
                             }
                             //if job seeker
                             if($userType==='J'){
-                            $querUser = "INSERT INTO job_seeker_profile (user_account_id,`headline`,`skills`,`website_url`,`street_address1`, `street_address2`, `city`, `state`, `country`, `zip`) VALUES ('$recordId','$headLine', '$skills', '$webSiteUrl', '$streetAddress1','$streetAddress2','$city','$state','$country','$zip')";
+                            $querUser = "INSERT INTO job_seeker_profile (user_account_id,`headline`,`skills`,`website_url`,`highest_degree`,`highest_major`,`year_of_exp`,`street_address1`, `street_address2`, `city`, `state`, `country`, `zip`) VALUES ('$recordId','$headLine', '$skills', '$webSiteUrl','$highestDegree','$major','$yearOfExp', '$streetAddress1','$streetAddress2','$city','$state','$country','$zip')";
                             $resUser = mysqli_query($db,$querUser);
                                 //add experience details if any
                                 if($counter>0){
@@ -327,9 +337,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add"]) || isset($_POST
                             //employer
                             if($userType==='J'){
 
-                            $querUser = "UPDATE job_seeker_profile set headline='" .$headLine. "', skills='" .$skills. "', website_url='" .$webSiteUrl. "', street_address1='" .$streetAddress1. "',
+                                $querUser = "UPDATE job_seeker_profile set headline='" .$headLine. "', skills='" .$skills. "', website_url='" .$webSiteUrl. "',highest_degree='" .$highestDegree. "',highest_major='" .$major. "',year_of_exp='" .$yearOfExp. "', street_address1='" .$streetAddress1. "',
                                 street_address2='" .$streetAddress2. "', city='" .$city. "', state='" .$state. "', country='" .$country. "', zip='" .$zip. "' WHERE user_account_id='".$id."'";
-                            $resUser = mysqli_query($db,$querUser);
+                              $resUser = mysqli_query($db,$querUser);
                             //add experience details if any
                                 if($counter>0){
                                     //delete preious records
@@ -669,6 +679,33 @@ hr.style-seven:after {
                                             <label  class="control-label">Website</label>
                                             <div class="help-block with-errors"></div>
                                             <input type="url" class="form-control" id="webSiteUrl" name="webSiteUrl" value="<?php echo $webSiteUrl?>">
+                                    </div>
+                                     <div  style=""  class="form-group">
+                                            <label  class="control-label">Highest Degree Earned</label>
+                                            <div class="help-block with-errors"></div>
+                                    <?php
+                                    
+                                    ?>
+                                   <select class="form-control " id="highest_degree" name="highest_degree" required="required">
+                                    <option <?php echo $highestDegree==""?"selected":""; ?> value=""  >Select one</option>
+                                    <option <?php echo ($highestDegree=="No formal education")?"selected":""; ?> value="No formal education">No formal education</option>
+                                    <option <?php echo ($highestDegree=="Primary education")?"selected":""; ?>  value="Primary education">Primary education</option>
+                                    <option <?php echo ($highestDegree=="Secondary education")?"selected":""; ?> value="Secondary education">Secondary education or high school</option>
+                                    <option <?php echo ($highestDegree=="Vocational qualification")?"selected":""; ?> value="Vocational qualification">Vocational qualification</option>
+                                    <option <?php echo ($highestDegree=="Bachelor's degree")?"selected":""; ?> value="Bachelor's degree">Bachelor's degree</option>
+                                    <option <?php echo ($highestDegree=="Master's degree")?"selected":""; ?> value="Master's degree">Master's degree</option>
+                                    <option <?php echo ($highestDegree=="Doctorate or higher")?"selected":""; ?> value="Doctorate or higher">Doctorate or higher</option>
+                                  </select>
+                                    </div>
+                                   <div class="form-group" style="">
+                                            <label  class="control-label">Major</label>
+                                            <div class="help-block with-errors"></div>
+                                            <input type="text" class="form-control" id="major" name="major" value="<?php echo $major;?>" required="true">
+                                    </div>
+                                   <div class="form-group" style="">
+                                            <label  class="control-label">No of Years of Experience</label>
+                                            <div class="help-block with-errors"></div>
+                                            <input type="number" class="form-control" id="year_of_exp" name="year_of_exp" value="<?php echo $yearOfExp;?>" required="true">
                                     </div>
                                     <!-- experience section starts here-->
                                    <div  style=""  class="form-group">

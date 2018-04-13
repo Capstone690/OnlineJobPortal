@@ -106,7 +106,7 @@ if($countLatestJob > 0) {
 	<td><?php echo $contentLatestJob["posted_date"]?></td>
 	<td><a href="company-detail.php?id=<?php echo $contentLatestJob["company_id"]?>"><?php echo $contentLatestJob["company_name"]?></a></td>
 	<td class="text-bold text-primary p"><a href="job-detail.php?id=<?php echo $contentLatestJob["id"]?>"><?php echo $contentLatestJob["job_title"]?></a></td>
-	<td><?php echo $contentLatestJob["loc_city"].", ".$contentLatestJob["loc_state"]?></td>
+	<td><?php echo get_city($contentLatestJob["loc_city"]).", ".get_state($contentLatestJob["loc_state"])?></td>
 	<td><?php echo $contentLatestJob["job_type"]?></td>
 	</tr>
     

@@ -10,9 +10,11 @@ define("CURRENT_URL", "http://".$dir."/OnlineJobPortal/");
 $changeNavBar=false;
 
 function test_input($data) {
+    global $db;
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
+  $data = mysqli_real_escape_string($db,$data);
   return $data;
 }
 function letter_space($name){

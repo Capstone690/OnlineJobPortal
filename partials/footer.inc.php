@@ -1,7 +1,7 @@
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-3">
+            <div class="col-8">
                 <div>
                     <a class="navbar-brand" href="#">Job Board</a>
                 </div>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="copyright">Job Board © 2018 </div>
             </div>
-            <div class="col-5">
+            <!--<div class="col-5">
                 <h5>NEWSLETTER</h5>
                 <p>Keep up with our always upcoming news and updates. Enter your e-mail and subscribe to our newsletter.</p>
                 <form class="form-inline">
@@ -34,16 +34,24 @@
                     </span>
 
                 </form>
-            </div>
+            </div>-->
             <div class="col">
                 <h5>CITIES</h5>
                 <ul class="list list-unstyled list-inline-primary">
-                    <li class="text-primary"><a href="#">New York</a></li>
-                    <li class="text-primary"><a href="#">San Diego</a></li>
-                    <li class="text-primary"><a href="#">Los Angeles</a></li>
-                    <li class="text-primary"><a href="#">Boston</a></li>
-                    <li class="text-primary"><a href="#">Washington</a></li>
-                    <li class="text-primary"><a href="#">Chicago</a></li>
+                    <?php
+                    //get top 5 cities for which jobs are posted recently
+                    $sqlCityJob = "SELECT DISTINCT temp.* FROM (SELECT cities.city_id,cities.city_name,job_post.company_id FROM `cities` INNER JOIN job_post ON cities.city_id=job_post.loc_city AND cities.status='1' AND job_post.is_active='1' AND job_post.is_delete='0' AND job_post.job_status='2' ORDER BY job_post.posted_date ) temp INNER JOIN company ON temp.company_id=company.id AND company.is_removed='0' AND company.is_active='1' limit 6";
+                    $resultCityJob = mysqli_query($db,$sqlCityJob);
+                    $countCityJob = mysqli_num_rows($resultCityJob);
+                    if($countCityJob > 0) {
+                     while($contentCityJob = mysqli_fetch_array($resultCityJob,MYSQLI_ASSOC)){
+
+                    ?>
+                    <li class="text-primary"><a href="<?php echo CURRENT_URL."jobs/"?>"><?php echo $contentCityJob["city_name"];?></a></li>
+                    <?php 
+                     }
+                    }?>
+                   
                 </ul>
 
             </div>

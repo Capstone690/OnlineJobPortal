@@ -115,6 +115,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["update_application_sta
                                                 $headLine =$content["headline"];
                                                 $skills =$content["skills"];
                                                 $webSiteUrl =$content["website_url"];
+                                                $highestDegree=$content["highest_degree"];
+                                                $major = $content["highest_major"];
+                                                $yearOfExp = $content["year_of_exp"];
+                 
                                                 $streetAddress1 =$content["street_address1"];
                                                 $streetAddress2 =$content["street_address2"];
                                                 $city=get_city($content["city"]);
@@ -202,13 +206,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["update_application_sta
                 <div class="panel-body">
                   <div class="row">
 				<div class="col-md-12">
+                                    <div style="margin:10px 0"><strong>
+                                        <?php
+                                        if($yearOfExp==0){
+                                            echo "No Previous experience";
+                                        }else if($yearOfExp==1){
+                                            echo $yearOfExp." year of Experience<br>";
+                                        }else if($yearOfExp>1){
+                                            echo $yearOfExp." years of Experience<br>";
+                                        }
+                                        ?>
+                                    </strong></div>
                                     <?php
                                     $sqlJobSeekerExperience = "SELECT `id`, `user_account_id`, `is_current_job`, `start_date`, `end_date`, `job_title`, `company_name`, `job_location`, `description`
                                         FROM experience_detail WHERE user_account_id='".$jobSeekerId."' ";
                                             $resultExperience = mysqli_query($db,$sqlJobSeekerExperience);
                                             $counter = mysqli_num_rows($resultExperience);
                                             if($counter<=0){
-                                                echo "-";
+                                               // echo "-";
                                             }else{
                                              while($rowJobSeekerExperience = mysqli_fetch_array($resultExperience,MYSQLI_ASSOC)){
                                                          $expid   = $rowJobSeekerExperience['id'];
@@ -253,6 +268,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["update_application_sta
                 <div class="panel-body">
                 <div class="row">
                     	<div class="col-md-12">
+                             <div style="margin:10px 0">
+                                        <?php
+                                        echo "<strong>Highest degree earned:</strong> ".$highestDegree." <strong>Major:</strong> ".$major;
+                                        ?>
+                                    </div>
                             <?php
                                 $sqlJobSeekerEducation = "SELECT `id`, `user_account_id`, `degree_name`, `major`, `institute_university_name`, `start_date`, `completion_date`, `grade`, `description`
                                         FROM education_detail WHERE user_account_id='".$jobSeekerId."' ";
