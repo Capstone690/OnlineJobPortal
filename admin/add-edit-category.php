@@ -160,7 +160,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["add_category"]) || iss
                                     <div class="form-group">
                                         <label  class="control-label">Icon</label>&nbsp;<span>search for icon that suits your business from <a href="https://fontawesome.com/icons?d=gallery" target="_blank">font awesome</a> and paste classname </span>
                                             <div class="help-block with-errors"></div>
-                                            <input class="form-control" id="font_icon" name="fontIcon" value="<?php echo $icon;?>" required="true">
+                                            <input class="form-control" id="font_icon" name="fontIcon" value="<?php echo $icon?$icon:"fa fa-font-awesome fa-4x";?>" required="true">
+                                         
                                             
                                     </div>
                                         <?php if($icon!=""){

@@ -88,6 +88,12 @@ if($count == 1) {
         if($searchDate!="")
             $searchQuery .=" AND job_post.posted_date>='".$searchDate."'";
  }
+ if(isset($_POST["keyword"]) && $_POST["keyword"]!=""){
+     $keyword = $_POST['keyword'];
+     $keyword = htmlspecialchars($keyword);
+     $searchQuery .=" AND job_skills LIKE '%".$keyword."%' OR job_title LIKE '%".$keyword."%' ";
+
+ }
  // RESET BUTTON
 
  if(isset($_POST['btn_clear']) && $_POST['btn_clear']!=""){
@@ -103,7 +109,7 @@ $currentpage=1;
 $resultLatestJobsTotal = mysqli_query($db,$sqlLatestJobsTotal);
 $numrows = mysqli_num_rows($resultLatestJobsTotal);
 // number of rows to show per page
-$rowsperpage = 10;
+$rowsperpage = 12;
 // find out total pages
 $totalpages = ceil($numrows / $rowsperpage);
 // get the current page or set a default
@@ -169,6 +175,63 @@ $offset = ($currentpage - 1) * $rowsperpage;
 
 
 <div class="container home-heading  ">
+    <div><h3 class="text-center text-primary">Jobs recommended for you </h3></div>
+        <div class="row">
+ 
+     <?php
+    $userID = $userIdDb;
+    $command = escapeshellcmd("job_recomm.py ".$userID."");
+    $output = shell_exec($command);
+    $output = substr($output,1,(strlen($output)-3));
+    $pieces = explode(",", $output);
+    $countRecJobs=0;
+    foreach($pieces as $jobId){
+      $jobId= trim($jobId);
+      $jobIdapp=substr($jobId,1,strlen($jobId)-2);
+      $appliedDate= has_applied($userID,$jobIdapp);
+      $message="No Records Found";
+    if($countRecJobs<2 && $appliedDate==""){
+
+    $getJob = "SELECT job_post.`id`,job_post.`posted_date`, company.company_name,company.id as company_id, job_post.job_title, job_post.`loc_city`, job_post.`loc_state`,job_type.job_type
+    FROM job_post INNER JOIN company ON job_post.company_id=company.id
+    INNER JOIN job_type ON job_post.job_type_id=job_type.id
+    WHERE job_post.is_active	='1' AND job_post.is_delete='0' AND job_post.job_status='2' AND company.is_removed='0' AND company.is_active='1' AND posted_date <= CURDATE() AND job_post.id=".$jobId."";
+    $resultgetjob = mysqli_query($db,$getJob);
+    $countgetjob = mysqli_num_rows($resultgetjob);
+    if($countgetjob>0){ $message="";
+        $contentgetjob = mysqli_fetch_array($resultLatestJobs,MYSQLI_ASSOC);
+         $jobId=$contentgetjob["id"];
+                            $jobTitle = $contentgetjob["job_title"];
+                            $companyId=$contentgetjob["company_id"];
+                            $companyName = $contentgetjob["company_name"];
+                           // $articleImg= CURRENT_URL.TARGET_DIR."/".$contentLatestNews["media"];
+                            $jobUrl = CURRENT_URL.'job-detail/' . $jobId;
+                            $companyUrl = CURRENT_URL.'company/' . urlencode(strtolower($companyName));
+                            $jobLocation = get_city($contentgetjob["loc_city"]).", ".get_state($contentgetjob["loc_state"]);
+                            $daysPassed=timeago($contentgetjob["posted_date"]);
+                           $countRecJobs++;
+    ?>
+  
+        <div class="col-12" style="border-bottom:1px solid rgba(0,0,0,.125);margin-bottom:15px ">
+            <h5 class="card-title"><a style="color:#212529" href="<?php echo $jobUrl?>"><?php echo $jobTitle?></a></h5>
+     <h6 class="card-subtitle mb-2 "><a href="<?php echo $companyUrl?>" target="_blank" class="text-muted"><?php echo $companyName?></a>&nbsp;<?php echo $jobLocation?>
+    </h6>
+   
+    
+   <p><small class="text-muted"><?php echo $daysPassed?></small>
+        </div>
+            <?php }?>
+        
+    <?php
+    }
+    ////if count <=2
+   }//closeforeach //close recommended jobs?>
+    <?php
+    if($message!=""){
+        echo "<div class='col text-center alert alert-danger'>".$message."</div>";
+    }
+    ?>
+    </div>
                   <div class="">
             <nav class="navbar navbar-light bg-light navbar-expand-lg ">
                 <!--<span class="navbar-text">
@@ -213,8 +276,11 @@ $offset = ($currentpage - 1) * $rowsperpage;
     </select>
   </div>
   <!-- skills-->
+  <?php $keyword = isset($_POST["keyword"])?$_POST["keyword"]:"";
+  ?>
+  
   <div class="col">
-    <input class="form-control" type="search" placeholder="Job Title or Skills" id="keyword" name="keyword" aria-label="Search">
+    <input class="form-control" value="<?php echo $keyword;?>" type="search" placeholder="Job Title or Skills" id="keyword" name="keyword" aria-label="Search">
   </div>
   <!-- seach button -->
  <div class="col-2">

@@ -80,7 +80,7 @@ $classNav="navbar fixed-top navbar-expand-lg navbar-dark ";
                             $updateProfileLink='employer';
                         }
                         ?>
-                        <a class="dropdown-item" href="<?php echo $updateProfileLink?>">Update Profile</a>
+                        <a class="dropdown-item" href="<?php echo CURRENT_URL.$updateProfileLink?>">Update Profile</a>
                         <a class="dropdown-item" href="<?php echo CURRENT_URL?>change-password">Change Password</a>
                         <a class="dropdown-item" href="<?php echo CURRENT_URL?>logout.php">Logout</a>
                         </div>
