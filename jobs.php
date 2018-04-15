@@ -150,6 +150,7 @@ $offset = ($currentpage - 1) * $rowsperpage;
         document.getElementById("company").value="";
         document.getElementById("job_type").value="";
         document.getElementById("city").value="";
+       document.getElementById("keyword").value="";
       
     }
     </script>
@@ -195,11 +196,11 @@ $offset = ($currentpage - 1) * $rowsperpage;
     $getJob = "SELECT job_post.`id`,job_post.`posted_date`, company.company_name,company.id as company_id, job_post.job_title, job_post.`loc_city`, job_post.`loc_state`,job_type.job_type
     FROM job_post INNER JOIN company ON job_post.company_id=company.id
     INNER JOIN job_type ON job_post.job_type_id=job_type.id
-    WHERE job_post.is_active	='1' AND job_post.is_delete='0' AND job_post.job_status='2' AND company.is_removed='0' AND company.is_active='1' AND posted_date <= CURDATE() AND job_post.id=".$jobId."";
+    AND job_post.is_active='1' AND job_post.is_delete='0' AND job_post.job_status='2' AND company.is_removed='0' AND company.is_active='1' AND posted_date <= CURDATE() AND job_post.id=".$jobId."";
     $resultgetjob = mysqli_query($db,$getJob);
     $countgetjob = mysqli_num_rows($resultgetjob);
     if($countgetjob>0){ $message="";
-        $contentgetjob = mysqli_fetch_array($resultLatestJobs,MYSQLI_ASSOC);
+        $contentgetjob = mysqli_fetch_array($resultgetjob,MYSQLI_ASSOC);
          $jobId=$contentgetjob["id"];
                             $jobTitle = $contentgetjob["job_title"];
                             $companyId=$contentgetjob["company_id"];

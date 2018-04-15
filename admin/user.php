@@ -126,16 +126,18 @@ if($count > 0) {
                                                 $companyId =0;
                                                 if($userType==='E'){
 
-                                                      $sqlEmployer = "SELECT `company_id`
+                                                       $sqlEmployer = "SELECT `company_id`
                                                     FROM employer_profile WHERE user_account_id='".$userId."' ";
                                                         $resultEmployer = mysqli_query($db,$sqlEmployer);
                                                         $countEmployer = mysqli_num_rows($resultEmployer);
                                                         if($countEmployer == 1) {
                                                             $rowEmployer = mysqli_fetch_array($resultEmployer,MYSQLI_ASSOC);
                                                             $companyId   = $rowEmployer["company_id"];
+                                                            }else{
+                                                                $companyId=0;
                                                             }
                                                   }
-                                                $companyName = get_company($companyId);
+                                                $companyName = $companyId?get_company($companyId):"-";
                                                  if($userType==='J'){
 
                                                       $sqlJobSeeker = "SELECT `city`,state

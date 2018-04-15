@@ -4,6 +4,7 @@
  * By: Dipali
  * Date: 03/15/2018
  */
+$isSession=0;
 
 require_once('admin/include/session.php');
 require_once("admin/include/config.php");

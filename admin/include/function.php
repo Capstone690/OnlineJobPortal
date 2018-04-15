@@ -299,7 +299,7 @@ function get_application_status($applStatusId){
 function get_appl_status_options($applStatusId){
     global $db;
     $option="<option value=''>Select</option>";
-    $sql = "SELECT appl_status_id, appl_status FROM application_status";
+   echo $sql = "SELECT appl_status_id, appl_status FROM application_status";
     $result = mysqli_query($db,$sql);
     $count = mysqli_num_rows($result);
     if($count>0){
